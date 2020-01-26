@@ -104,7 +104,6 @@ else {
      
             <AgGridReact
              modules={this.state.modules}
-             rowClass ="hoverRow"
                 columnDefs={this.state.columnDefs}
                rowData={this.props.rowData}
               frameworkComponents={this.fixRendered()}
