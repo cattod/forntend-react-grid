@@ -4,7 +4,7 @@ export class Example extends Component{
 
     render() {
         return(
-            <button>add</button>
+            <button onClick={()=>console.log("hello")}>add</button>
         )
     }
 

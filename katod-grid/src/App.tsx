@@ -10,8 +10,15 @@ model ?: string,
 price ?: number
 }
 
+interface IActions<T> {
+  title:string,
+  key?: string,
+  icon ?:string,
+  actionFa ?(data?: T):void
+}
+
 const App: React.FC = () => {
-let  columnDefs:Array<columnDefs>=[
+let  columnDefs:Array<columnDefs<IRowData>>=[
     { headerName: "Make", field: "make"//,  width: 180
    },
     { headerName: "Model", field: "model" //,  width: 180
@@ -26,6 +33,16 @@ let  columnDefs:Array<columnDefs>=[
     }]
 
 
+const actions: IActions<IRowData>[] = [
+{title:"Add" , key : "add" , icon: "add", actionFa:(data:IRowData)=>{addRow(data)}},
+{title:"Edit" , key : "edit" , icon: "edit", actionFa:(data:IRowData)=>{addRow(data)}}
+]
+
+const addRow = (data:IRowData)=>{
+console.log(data)
+}
+
+
 let rowData : Array<IRowData> =  [
   { make: "Toyota"},
   { make: "Ford", model: "Mondeo", price: 32000 },
@@ -34,8 +51,9 @@ let rowData : Array<IRowData> =  [
     <div>
       <CatodGrid<IRowData,React.FunctionComponent|React.ReactNode>
        rowData = {rowData}
-      columnDefs={columnDefs}
+     // columnDefs={columnDefs}
       frameworkComponents={ { Example: Example}}
+      actions = {actions}
       />
     </div>
   );

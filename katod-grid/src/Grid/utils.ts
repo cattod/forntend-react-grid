@@ -1,11 +1,28 @@
-import {columnDefs} from "./model"
+import {columnDefs, IActions} from "./model"
 
-export function defineCol<T>(data: T[]|undefined): columnDefs[]{
+export function defineCol<T>(data: T[]|undefined): columnDefs<T>[]{
     let newItem = definItem(data)
-            return newItem.map((item:string,index:number)=>{
-               return { headerName:_capitalize(item), field: item ,cellRenderer: "action" }
+            return newItem.map((item:string)=>{
+               return { headerName:_capitalize(item), field: item ,cellRenderer: "" }
             })
 }
+
+export function addActionToGrid<T>(data: T[]|undefined,actions: IActions<T>[]|undefined): columnDefs<T>[] {
+  let newGrid: columnDefs<T>[]  = defineCol(data)
+  newGrid.push(
+    { headerName:"Actions", field: "Actions" ,cellRenderer: "Actions" ,
+    cellEditorFramework:actions}
+   )
+   return newGrid
+}
+
+export function defineColAction<T>(data: Array <columnDefs<T>>,actions: IActions<T>[]|undefined)  : columnDefs<T>[] {
+    
+    data.push(
+      { headerName:"Actions", field: "Actions" ,cellRenderer: "Actions" ,cellEditorFramework:actions}
+     )
+     return data
+  }
 
 function definItem<T>(data: T[]|undefined){
         let fields :string[][]= []
@@ -23,7 +40,7 @@ function definItem<T>(data: T[]|undefined){
 
 }
 
-const _capitalize = (s:string)=>{
+const _capitalize = (s:string): string=>{
     return s[0].toUpperCase() + s.slice(1);
 }
  
