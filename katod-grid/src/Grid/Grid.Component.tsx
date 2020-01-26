@@ -12,23 +12,31 @@ import {Actions} from "./Actions"
 import { Module } from '@ag-grid-community/core';
 import "./style.scss"
 
-interface IState<T,P>{
+interface IState<T>{
     columnDefs:Array <columnDefs<T>> 
     rowData: T[]
-    frameworkComponents?:any
+    frameworkComponents?:{
+      [p: string]: {
+          new (): any;
+      };
+  } | any
     modules: any//Module[]|undefined
 }
 
-interface IProps<T,P>{
+interface IProps<T>{
     columnDefs?:Array <columnDefs<T>>  
     rowData?:T[]
-    frameworkComponents?:P|undefined
+    frameworkComponents?:{
+      [p: string]: {
+          new (): any;
+      };
+  } | any
     actions ?: IActions<T>[]
   
 }
 
-export class CatodGrid<T,P> extends Component<IProps<T,P>,IState<T,P>> {
-    constructor(props:IProps<T,P>) {
+export class CatodGrid<T> extends Component<IProps<T>,IState<T>> {
+    constructor(props:IProps<T>) {
         super(props);
         this.state = {
           modules:AllCommunityModules,
@@ -82,7 +90,7 @@ checkActions() {
 }
 
 fixRendered = () => {
-  let newss = this.props.frameworkComponents
+  let newss:{[p: string]: { new (): any;};} | any = this.props.frameworkComponents
   if (this.props.actions)
 return  {...newss,Actions:Actions}
 else {

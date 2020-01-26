@@ -49,7 +49,7 @@ let rowData : Array<IRowData> =  [
   { make: "Porsche", model: "Boxter", price: 72000 }]
   return (
     <div>
-      <CatodGrid<IRowData,React.FunctionComponent|React.ReactNode>
+      <CatodGrid<IRowData>
        rowData = {rowData}
      // columnDefs={columnDefs}
       frameworkComponents={ { Example: Example}}
