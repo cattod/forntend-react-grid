@@ -3,7 +3,6 @@ import './App.css';
 import {CatodGrid} from "./Grid/Grid.Component"
 import {columnDefs} from "./Grid/model"
 import {Example} from "./TestShowComponent"
-import { Component } from '@ag-grid-community/all-modules';
 
 interface IRowData{
 make ?:string,
@@ -13,14 +12,17 @@ price ?: number
 
 const App: React.FC = () => {
 let  columnDefs:Array<columnDefs>=[
-    { headerName: "Make", field: "make" },
-    { headerName: "Model", field: "model" },
-    { headerName: "Price", field: "price" },
+    { headerName: "Make", field: "make"//,  width: 180
+   },
+    { headerName: "Model", field: "model" //,  width: 180
+  },
+    { headerName: "Price", field: "price" //,  width: 180
+  },
     {
       headerName: "Child/Parent",
       field: "price",
       cellRenderer: "Example",
-      width: 180
+     // width: 180
     }]
 
 
@@ -30,7 +32,7 @@ let rowData : Array<IRowData> =  [
   { make: "Porsche", model: "Boxter", price: 72000 }]
   return (
     <div>
-      <CatodGrid<IRowData,any>
+      <CatodGrid<IRowData,React.FunctionComponent|React.ReactNode>
        rowData = {rowData}
       columnDefs={columnDefs}
       frameworkComponents={ { Example: Example}}
