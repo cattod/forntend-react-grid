@@ -1,9 +1,9 @@
 import React , {Component} from "react"
-import {IActions,columnDefs} from "./model"
+import {IActions,ICatodcolumnDefs} from "./model"
 
 interface IProps<T>{
   //  id ?:Array <columnDefs>  
-  colDef : columnDefs<T>
+  colDef : ICatodcolumnDefs<T>
   data: T
 }
 
@@ -18,14 +18,13 @@ export class Actions<T> extends Component<IProps<T>,IState<T>>{
     }
 
     componentDidMount() {
-        if (this.props.colDef.cellEditorFramework) {
-            this.setState({actions:this.props.colDef.cellEditorFramework})
-        }
+        // if (this.props.colDef.cellEditorFramework) {
+        //     this.setState({actions:this.props.colDef.cellEditorFramework})
+        // }
     }
 
     render() {
        
-      
         return(
             <React.Fragment>
                 {this.state.actions? this.state.actions.map((item: IActions<T>,index:number)=>{
