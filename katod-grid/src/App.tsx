@@ -15,7 +15,7 @@ interface IActions<T> {
   title:string,
   key?: string,
   icon ?:string,
-  actionFa ?(data?: T):void
+  actionFn ?(data?: T):void
 }
 
 const App: React.FC = () => {
@@ -72,8 +72,8 @@ const valueGetterFnp = (data:IRowData)=>{
 
 }
 const actions: IActions<IRowData>[] = [
-{title:"Add" , key : "add" , icon: "add", actionFa:(data:IRowData)=>{addRow(data)}},
-{title:"Edit" , key : "edit" , icon: "edit", actionFa:(data:IRowData)=>{addRow(data)}}
+{title:"Add" , key : "add" , icon: "add", actionFn:(data:IRowData)=>{addRow(data)}},
+{title:"Edit" , key : "edit" , icon: "edit", actionFn:(data:IRowData)=>{addRow(data)}}
 ]
 
 const addRow = (data:IRowData)=>{
@@ -84,6 +84,9 @@ let rowData : Array<IRowData> =  [
   { make: "Toyota"},
   { make: "Ford", model: "Mondeo", price: 32000 },
   { make: "Porsche", model: "Boxter", price: 72000 }]
+  for (let i = 0 ; i<200; i++) {
+    rowData.push({ make: "Porsche", model: "Boxter", price: 72000 })
+  }
   return (
     <div>
       <CatodGrid<IRowData>
@@ -93,7 +96,7 @@ let rowData : Array<IRowData> =  [
       actions = {actions}
     //  costumHeader = {Example}
     footer = ""
-    rowNumber = {3}
+    rowNumber = {30}
       />
     </div>
   );

@@ -9,13 +9,14 @@ import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
 import "@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
 import {Actions} from "./Actions"
 import { Module } from '@ag-grid-community/core';
+//import { ColumnApi, GridApi, GridOptions, Module } from "ag-grid-community";
 import "./style.scss"
 
 interface IState<T>{
     columnDefs:Array<IColumnDefs<T>>|undefined
     rowData: Array<T|T&{[x:string]:string|boolean|number}>
     frameworkComponents?:{[key:string]:React.FunctionComponent|React.ReactNode}
-
+    modules?:Module[]|undefined|any
 }
 
 interface IProps<T>{
@@ -28,10 +29,12 @@ interface IProps<T>{
 }
 
 export class CatodGrid<T> extends Component<IProps<T>,IState<T>> {
+  gridApi:any;
+  gridColumnApi:any
     constructor(props:IProps<T>) {
         super(props);
         this.state = {
-         // modules:AllCommunityModules,
+          modules:AllCommunityModules,
           columnDefs: [],
           rowData: this.props.dataRow,
           frameworkComponents: undefined
@@ -142,16 +145,28 @@ fixRendered = () => {
     })
 return newFrame
 }
+onGridReady = (params:any) => {
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+  params.api.paginationGoToPage(0);
+  this.gridApi.paginationSetPageSize(Number(this.props.rowNumber));
+
+};
+
     render() {
         return(
             <div className="ag-theme-balham catod-grid-size">
      
             <AgGridReact
-             //modules={this.state.modules}
+             modules={this.state.modules}
             columnDefs={this.state.columnDefs}
                rowData={this.state.rowData}
               frameworkComponents={this.fixRendered()}
-              suppressMenuHide={true}
+              
+             // paginationAutoPageSize={true}
+              pagination={true}
+              onGridReady={this.onGridReady}
+             // suppressMenuHide={true}
               >
             </AgGridReact>
           </div>
