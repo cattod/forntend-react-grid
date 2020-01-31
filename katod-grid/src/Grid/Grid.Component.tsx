@@ -26,7 +26,7 @@ interface IState<T> {
 
 interface IProps<T> {
   columnDef?: Array<ICatodcolumnDefs<T>>
-  dataRow: T[]
+  dataRow?: T[]
   actions?: ICatodActions<T>[]
   rowNumber?: number
   height?: string
@@ -41,7 +41,7 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
     this.state = {
       modules: AllCommunityModules,
       columnDefs: [],
-      rowData: this.props.dataRow,
+      rowData: this.props.dataRow?this.props.dataRow:[],
       frameworkComponents: undefined
 
     }
