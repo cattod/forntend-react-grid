@@ -4,21 +4,10 @@ export interface ICatodcolumnDefs<T> {
    key: string
     valueGetter?(data:T):any,
      displayValue? ():void
-    // headerName ?: string,
-    //  field ?: string
-    //  cellRenderer?:string,
-    //  width ?: number
-    //  headerComponent ?: any
-    //  headerComponentParams ?:any
-    //  suppressMenu?:boolean
-    //  frameworkComponents?: any
-    //  cellEditorFramework? : IActions<T>[]|undefined
-    //  sortable?: boolean
 }
 
 
-export interface IColumnDefs<T> {
-
+export interface IAgColumnDefs<T> {
     headerName ?: string,
      field ?: string
      cellRenderer?:string,
@@ -27,15 +16,19 @@ export interface IColumnDefs<T> {
      headerComponentParams ?:any
      suppressMenu?:boolean
      frameworkComponents?: any
-     cellEditorFramework? : IActions<T>[]|undefined
+     cellEditorFramework? : ICatodActions<T>[]|undefined
      sortable?: boolean
+     pinned?: string
+     suppressSizeToFit?:boolean
+     minWidth?: number,
+     maxWidth?:number
 }
 
 
-export interface IActions<T> {
+export interface ICatodActions<T> {
   title:string,
   key?: string,
   icon ?:string,
-  actionFa ?(data?: T):void,
+  actionFn ?(data?: T):void,
 
 }

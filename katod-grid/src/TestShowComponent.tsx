@@ -6,7 +6,7 @@ export class Example extends Component<any,any>{
     }
 
     render() {
-        console.log(this.props)
+      
    
         return(
         <button onClick={()=>console.log("hello")}>{this.props.value}</button>

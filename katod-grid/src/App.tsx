@@ -3,7 +3,6 @@ import './App.css';
 import {CatodGrid} from "./Grid/Grid.Component"
 import {ICatodcolumnDefs} from "./Grid/model"
 import {Example} from "./TestShowComponent"
-import '@fortawesome/fontawesome-svg-core/styles.css'
 
 interface IRowData{
 make ?:string,
@@ -17,23 +16,7 @@ interface IActions<T> {
   icon ?:string,
   actionFn ?(data?: T):void
 }
-
 const App: React.FC = () => {
-// let  columnDefs:Array<columnDefs<IRowData>>=[
-//     { headerName: "Make", field: "make" ,  sortable: false,
-//     headerComponentParams: { menuIcon: "fa-external-link-alt" }//,  width: 180
-//    },
-//     { headerName: "Model666", field: "model" , headerComponentParams: { menuIcon: "fa-cog" }//,  width: 180
-//   },
-//     { headerName: "Price", field: "price" , suppressMenu:true //,  width: 180
-//   },
-//     {
-//       headerName: "Child/Parent",
-//       field: "price",
-//       //cellRenderer: "Example",
-//       headerComponentParams: { menuIcon: "fa-external-link-alt" },
-//     }]
-
 let columnDefs: Array<ICatodcolumnDefs<IRowData>> = [
   {title:"a",
     icon:"",
@@ -51,9 +34,17 @@ let columnDefs: Array<ICatodcolumnDefs<IRowData>> = [
     {title:"c",
     icon:"",
     key:"c",
-   // valueGetter:(rowData)=>{valueGetterFnp(rowData)}
-    //  valueGetter?(data:T):void,
-    //   displayValue? ():void
+
+    },
+    {title:"c",
+    icon:"",
+    key:"c",
+
+    },
+    {title:"c",
+    icon:"",
+    key:"c",
+
     }
 ]
 const valueGetter1 = (data:IRowData):any=>{
@@ -72,11 +63,16 @@ const valueGetterFnp = (data:IRowData)=>{
 
 }
 const actions: IActions<IRowData>[] = [
-{title:"Add" , key : "add" , icon: "add", actionFn:(data:IRowData)=>{addRow(data)}},
-{title:"Edit" , key : "edit" , icon: "edit", actionFn:(data:IRowData)=>{addRow(data)}}
+{title:"Add" , key : "add" , icon: "trash-alt", actionFn:(data:IRowData)=>{ addRow(data)}},
+{title:"Edit" , key : "edit" , icon: "edit", actionFn:(data:IRowData)=>{addRow(data)}},
+{title:"Add" , key : "add" , icon: "trash-alt", actionFn:(data:IRowData)=>{ addRow(data)}},
+{title:"Edit" , key : "edit" , icon: "edit", actionFn:(data:IRowData)=>{addRow(data)}},
+
 ]
 
 const addRow = (data:IRowData)=>{
+  
+  console.log(data)
 }
 
 
@@ -87,15 +83,22 @@ let rowData : Array<IRowData> =  [
   for (let i = 0 ; i<200; i++) {
     rowData.push({ make: "Porsche", model: "Boxter", price: 72000 })
   }
+
+  let rowData1 : Array<IRowData> =  [
+    { make: "Toyota"},
+    { make: "Ford", model: "Mondeo", price: 32000 },
+    { make: "Porsche", model: "Boxter", price: 72000 }]
+    for (let i = 0 ; i<200; i++) {
+      rowData1.push({ make: "e", model: "e", price: 45 })
+    }
   return (
-    <div>
+    <div className="app">
+     
       <CatodGrid<IRowData>
+        height={"400px"}
        dataRow = {rowData}
        columnDef={columnDefs}
-    //  frameworkComponents={ { Example: Example, agColumnHeader: Example}}
       actions = {actions}
-    //  costumHeader = {Example}
-    footer = ""
     rowNumber = {30}
       />
     </div>
