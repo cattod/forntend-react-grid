@@ -28,7 +28,7 @@ export interface IAgColumnDefs<T> {
 export interface ICatodActions<T> {
   title:string,
   key?: string,
-  icon ?:string,
+  icon :string,
   actionFn ?(data?: T):void,
 
 }

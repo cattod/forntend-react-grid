@@ -4,7 +4,10 @@ import {CatodGrid} from "./Grid/Grid.Component"
 
 const App: React.FC = () => {
   return (     
-      <CatodGrid/>
+    <div>
+ <CatodGrid/>
+    </div>
+     
   );
 }
 
