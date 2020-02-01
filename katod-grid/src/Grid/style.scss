@@ -6,9 +6,10 @@
 .ag-theme-balham .ag-row:hover {  
     background-color: #f5f7f7;
     font-weight: bolder;  
-    .actionsH{
+    .catod-actions{
         opacity: 0.6;  
         span{ 
+           
             float:right;
             padding: 7px;
         display:inline}
@@ -17,8 +18,12 @@
 }
 
 .catod-actions{  
-    span{
-    display:none}   
+        span{
+        float:right;
+        padding: 7px;
+  
+    display:none
+}   
 }
 
 .catod-actions:hover{

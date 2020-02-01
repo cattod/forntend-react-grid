@@ -29,6 +29,7 @@ export class Actions<T> extends Component<IProps<T>, IState<T>>{
                 {this.state.actions ? this.state.actions.map((item: ICatodActions<T>, index: number) => {
                     return (
                         <span key={index}
+                        title={item.title}
                             onClick={() => {
                                 if (item.actionFn)
                                     item.actionFn(this.props.data)

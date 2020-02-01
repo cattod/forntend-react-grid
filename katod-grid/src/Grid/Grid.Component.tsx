@@ -52,13 +52,21 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
   componentDidMount() {
     this.fixColumnDef(this.props.columnDef)
   }
+  componentDidUpdate(prevProps:IProps<T>, prevState:IState<T>) {
+    
+    if (this.props.dataRow !== prevProps.dataRow) {
+      this.fixColumnDef(this.props.columnDef)
+  
+      
+    }
+  }
 
   fixColumnDef = (data: Array<ICatodcolumnDefs<T>> | undefined): void => {
-    let newData: Array<T | T & { [x: string]: string | boolean | number }> = this.state.rowData
+    let newData: Array<T | T & { [x: string]: string | boolean | number }>|undefined = this.props.dataRow
     let newFrame: { [key: string]: React.FunctionComponent | React.ReactNode } | undefined | {} = this.state.frameworkComponents
     let newCol: Array<IAgColumnDefs<T>> | undefined = data?.map((item: ICatodcolumnDefs<T>, index: number) => {
 
-      if (item.valueGetter) {
+      if (item.valueGetter&& newData) {
 
         newData = newData.map((item1: T | T & { [x: string]: string | boolean | number }, index: number) => {
           if (item.valueGetter) {
