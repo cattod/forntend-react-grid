@@ -1,7 +1,7 @@
 export interface ICatodcolumnDefs<T> {
   title:string,
    icon?: string,
-   key: string
+   key: string,
     valueGetter?(data:T):any,
      displayValue? ():void
 }

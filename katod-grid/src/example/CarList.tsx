@@ -107,7 +107,7 @@ newData = [
 
 }
  addRow = (data:IRowData)=>{
-  
+  console.log(data)
 
 }
 
