@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import { AgGridReact } from 'ag-grid-react';
+import { AgGridReact, AgGridReactProps } from 'ag-grid-react';
 import { ICatodcolumnDefs, ICatodActions, IAgColumnDefs, IMessage } from "./model"
-import { AllCommunityModules, GridReadyEvent } from "@ag-grid-community/all-modules";
+import { AllCommunityModules, GridReadyEvent, AgGridEvent } from "@ag-grid-community/all-modules";
 import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
 import "@ag-grid-community/all-modules/dist/styles/ag-theme-bootstrap.css";
 import { Actions } from "./Actions"
@@ -11,10 +11,7 @@ import { Module, GridApi, ColumnApi } from '@ag-grid-community/core';
 
 import "./style.scss"
 
-
-interface IGridApi extends GridApi {
-
-  setDomLayout(domLayout: string): void;
+interface IAgAPI {
 
 }
 
@@ -23,8 +20,10 @@ interface IState<T> {
   rowData: Array<T | T & { [x: string]: string | boolean | number }>
   frameworkComponents?: { [key: string]: React.FunctionComponent | React.ReactNode }
   modules?: Module[] | undefined | any
-  messageEmptyData:string 
-  messageLoading:string
+  messageEmptyData: string
+  messageLoading: string
+  height: string
+  direction: boolean
 }
 
 interface IProps<T> {
@@ -33,22 +32,27 @@ interface IProps<T> {
   actions?: ICatodActions<T>[]
   rowNumber?: number
   height?: string
-  message?:IMessage
+  message?: IMessage
 
 }
 
+
 export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
+
+
   gridApi: GridApi | null | undefined;
   gridColumnApi: ColumnApi | null | undefined;
   constructor(props: IProps<T>) {
     super(props);
     this.state = {
+      direction: false,
+      height: "50px",
       modules: AllCommunityModules,
       columnDefs: [],
-      rowData: this.props.dataRow?this.props.dataRow:[],
+      rowData: this.props.dataRow ? this.props.dataRow : [],
       frameworkComponents: undefined,
-      messageEmptyData:this.props.message?.emptyData?this.props.message.emptyData:"There is not any data",
-      messageLoading:this.props.message?.loading?this.props.message.loading:"Loading ..."
+      messageEmptyData: this.props.message?.emptyData ? this.props.message.emptyData : "There is not any data",
+      messageLoading: this.props.message?.loading ? this.props.message.loading : "Loading ..."
 
     }
   }
@@ -56,23 +60,34 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
 
 
   componentDidMount() {
-    this.fixColumnDef(this.props.columnDef)
+    const element: Element | null = document.querySelector('.parent-style')
+    const style: CSSStyleDeclaration | "" = element ? getComputedStyle(element) : ""
+    if (style !== "") {
+      this.fixColumnDef(this.props.columnDef, style.direction)
+      if (style.direction === "rtl") {
+        this.setState({ direction: true })
+      }
+    }
+
+
+
   }
-  componentDidUpdate(prevProps:IProps<T>, prevState:IState<T>) {
-    
+  componentDidUpdate(prevProps: IProps<T>, prevState: IState<T>) {
+
+
     if (this.props.dataRow !== prevProps.dataRow) {
-      this.fixColumnDef(this.props.columnDef)
-  
-      
+      this.fixColumnDef(this.props.columnDef, this.state.direction ? "rtl" : "ltr")
+
+
     }
   }
 
-  fixColumnDef = (data: Array<ICatodcolumnDefs<T>> | undefined): void => {
-    let newData: Array<T | T & { [x: string]: string | boolean | number }>|undefined = this.props.dataRow
+  fixColumnDef = (data: Array<ICatodcolumnDefs<T>> | undefined, direction: string): void => {
+    let newData: Array<T | T & { [x: string]: string | boolean | number }> | undefined = this.props.dataRow
     let newFrame: { [key: string]: React.FunctionComponent | React.ReactNode } | undefined | {} = this.state.frameworkComponents
     let newCol: Array<IAgColumnDefs<T>> | undefined = data?.map((item: ICatodcolumnDefs<T>, index: number) => {
 
-      if (item.valueGetter&& newData) {
+      if (item.valueGetter && newData) {
 
         newData = newData.map((item1: T | T & { [x: string]: string | boolean | number }, index: number) => {
           if (item.valueGetter) {
@@ -88,10 +103,10 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
       }
       if (item.displayValue) {
         newFrame = { ...newFrame, [item.key]: item.displayValue() }
-        return ({ headerName: item.title, field: item.key, cellRenderer: item.key })
+        return ({ headerName: item.title, field: item.key, cellRenderer: item.key, cellStyle: { direction: direction } })
 
       }
-      return ({ headerName: item.title, field: item.key })
+      return ({ headerName: item.title, field: item.key, cellStyle: { direction: direction } })
 
     })
     if (this.props.actions) {
@@ -122,36 +137,32 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
     }
     return newFrame
   }
+
   onGridReady = (event: GridReadyEvent | any): void => {
     this.gridColumnApi = event.columnApi;
     this.gridApi = event.api;
     this.gridColumnApi = event.columnApi;
-    if (this.gridApi)
+    if (this.gridApi) {
       this.gridApi.setDomLayout("normal");
+      if (this.props.height) {
+        this.setState({ height: this.props.height })
+      } else {
+        this.gridApi.setDomLayout("autoHeight");
+        this.setState({ height: "" })
+      }
+    }
     event.api.sizeColumnsToFit();
-    window.addEventListener("resize", function () {
-      setTimeout(function () {
-        event.api.sizeColumnsToFit();
-      });
-    });
-
-    event.api.sizeColumnsToFit();
-
   };
 
+
+
   render() {
-    const element :any= document.querySelector('.parent-style')
-    // var element:any = document.querySelector('.jsCSS');
-//var con = element?.computedStyleMap().get('margin');
-// console.log(element,"css");
 
- const style:any = element?getComputedStyle(element):""
 
-console.log(style.direction)
     return (
       <div
-      className="ag-theme-bootstrap parent-style">
-        <div className="catod-container" style={{ height: this.props.height ? this.props.height : "400px" }}>
+        className="ag-theme-bootstrap parent-style">
+        <div className="catod-container" style={{ height: this.state.height }}>
 
 
           <div id="center">
@@ -165,7 +176,7 @@ console.log(style.direction)
                 rowData={this.state.rowData}
                 frameworkComponents={this.fixRendered()}
                 animateRows={true}
-                enableRtl={style.direction==="rtl"?true:false}
+                enableRtl={this.state.direction}
                 onGridReady={this.onGridReady}
                 overlayLoadingTemplate={this.state.messageLoading}
                 overlayNoRowsTemplate={this.state.messageEmptyData}
@@ -175,6 +186,8 @@ console.log(style.direction)
 
         </div>
       </div>
+
+
     )
   }
 

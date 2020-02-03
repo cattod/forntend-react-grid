@@ -1,9 +1,9 @@
 import React from 'react';
-import {CatodGrid} from "../Grid/Grid.Component"
-import {ICatodcolumnDefs} from "../Grid/model"
+import {CatodGrid} from "../../Grid/Grid.Component"
+import {ICatodcolumnDefs} from "../../Grid/model"
 import {Example} from "./SampleCellComponent"
 import {Footer} from "./Footer"
-import {ICatodActions} from "../Grid/model"
+import {ICatodActions} from "../../Grid/model"
 // var element:any = document.querySelector('.jsCSS');
 // var con = element?.computedStyleMap().get('background-color');
 // console.log(element,"css");
@@ -24,7 +24,9 @@ interface IActions<T> {
   icon ?:string,
   actionFn ?(data?: T):void
 }
-interface IProps{}
+interface IProps{
+ // dir: 'ltr'
+}
 
 interface IState {
   columnDefs: Array<ICatodcolumnDefs<IRowData>>
@@ -133,14 +135,19 @@ handlePrev=(page:number) =>{
 
 }
 
+
+
+
   render() {
+    // const style = document.querySelector(".app")
+    // console.log(style)
     const message= {loading:"", emptyData:""}
     return (
       <div className="app">
           <Footer handleNext={this.handleNext} handlePrev={this.handlePrev}/>
         <CatodGrid<IRowData>
           message = {message}
-          height={"400px"}
+       //   height={"400px"}
          dataRow = {this.state.rowData}
          columnDef={this.state.columnDefs}
         actions = {this.state.actions}

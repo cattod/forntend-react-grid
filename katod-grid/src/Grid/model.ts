@@ -8,14 +8,14 @@ export interface ICatodcolumnDefs<T> {
 
 
 export interface IAgColumnDefs<T> {
+  cellStyle?: {direction:string}
     headerName ?: string,
      field ?: string
      cellRenderer?:string,
      width ?: number
-     headerComponent ?: any
-     headerComponentParams ?:any
+ 
      suppressMenu?:boolean
-     frameworkComponents?: any
+     frameworkComponents?: string
      cellEditorFramework? : ICatodActions<T>[]|undefined
      sortable?: boolean
      pinned?: string
