@@ -1,7 +1,46 @@
+// Set the colors to blue and amber
+$ag-header-background-color: #f6f6f6; // blue-500
+// $ag-border-color :#ddd;
+// $ag-cell-horizontal-border:#ddd;
+// $focused-cell-border-color:#ddd;
+// $cell-highlight-border:#ddd;
+// Import the ag-Grid material theme
+$ag-background-color:#f9f9f9;
+$hover-color:#f5f5f5;
+$ag-foreground-color:#444;
+$secondary-foreground-color:rgb(68, 68, 68);
+$ag-header-height:35px;
+$ag-row-height:39px;
+$ag-font-size:13px;
+$ag-font-weight:inherit;
+$ag-font-family:inherit;
+$ag-secondary-font-family:inherit;
+$ag-secondary-font-size:13px;
+$ag-secondary-font-weight:600;
+//$ag-dialog-border-size:0;
+$ag-row-border-width:1px;
+$ag-border-color:#ddd;
+$odd-row-background-color:white;
+$ag-cell-horizontal-border:  1px solid #ddd;
+//$ag-cell-horizontal-border: 1px solid green;
+@import '~ag-grid-community/src/styles/ag-theme-bootstrap/sass/ag-theme-bootstrap';
+// @import '@ag-grid-community/all-modules/dist/styles/ag-theme-bootstrap';
+// @import '@ag-grid-community/all-modules/dist/styles/ag-grid';
+
+.parent-style{
+    margin:0px
+}
+
 .catod-grid-size {
     height:100%;
     width: 100%; 
 }
+
+// .ag-cell{
+   
+ 
+
+// }
 
 .ag-theme-balham .ag-row:hover {  
     background-color: #f5f7f7;
@@ -49,4 +88,6 @@
     width: 100%;
   
 }
+
+
 

@@ -4,6 +4,11 @@ import {ICatodcolumnDefs} from "../Grid/model"
 import {Example} from "./SampleCellComponent"
 import {Footer} from "./Footer"
 import {ICatodActions} from "../Grid/model"
+// var element:any = document.querySelector('.jsCSS');
+// var con = element?.computedStyleMap().get('background-color');
+// console.log(element,"css");
+
+// const style = getComputedStyle(element)
 
 interface IRowData{
 make ?:string,
@@ -129,11 +134,12 @@ handlePrev=(page:number) =>{
 }
 
   render() {
-    
+    const message= {loading:"", emptyData:""}
     return (
       <div className="app">
           <Footer handleNext={this.handleNext} handlePrev={this.handlePrev}/>
         <CatodGrid<IRowData>
+          message = {message}
           height={"400px"}
          dataRow = {this.state.rowData}
          columnDef={this.state.columnDefs}

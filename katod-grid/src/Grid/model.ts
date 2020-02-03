@@ -32,3 +32,8 @@ export interface ICatodActions<T> {
   actionFn ?(data?: T):void,
 
 }
+
+export interface IMessage{
+  emptyData?:string
+  loading?:string
+}

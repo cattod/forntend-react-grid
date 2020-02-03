@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { AgGridReact } from 'ag-grid-react';
-import { ICatodcolumnDefs, ICatodActions, IAgColumnDefs } from "./model"
+import { ICatodcolumnDefs, ICatodActions, IAgColumnDefs, IMessage } from "./model"
 import { AllCommunityModules, GridReadyEvent } from "@ag-grid-community/all-modules";
 import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
-import "@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
+import "@ag-grid-community/all-modules/dist/styles/ag-theme-bootstrap.css";
 import { Actions } from "./Actions"
 import { Module, GridApi, ColumnApi } from '@ag-grid-community/core';
 
 import "./style.scss"
+
 
 interface IGridApi extends GridApi {
 
@@ -22,6 +23,8 @@ interface IState<T> {
   rowData: Array<T | T & { [x: string]: string | boolean | number }>
   frameworkComponents?: { [key: string]: React.FunctionComponent | React.ReactNode }
   modules?: Module[] | undefined | any
+  messageEmptyData:string 
+  messageLoading:string
 }
 
 interface IProps<T> {
@@ -30,6 +33,7 @@ interface IProps<T> {
   actions?: ICatodActions<T>[]
   rowNumber?: number
   height?: string
+  message?:IMessage
 
 }
 
@@ -42,7 +46,9 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
       modules: AllCommunityModules,
       columnDefs: [],
       rowData: this.props.dataRow?this.props.dataRow:[],
-      frameworkComponents: undefined
+      frameworkComponents: undefined,
+      messageEmptyData:this.props.message?.emptyData?this.props.message.emptyData:"There is not any data",
+      messageLoading:this.props.message?.loading?this.props.message.loading:"Loading ..."
 
     }
   }
@@ -134,9 +140,17 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
   };
 
   render() {
+    const element :any= document.querySelector('.parent-style')
+    // var element:any = document.querySelector('.jsCSS');
+//var con = element?.computedStyleMap().get('margin');
+// console.log(element,"css");
+
+ const style:any = element?getComputedStyle(element):""
+
+console.log(style.direction)
     return (
       <div
-        className="ag-theme-balham">
+      className="ag-theme-bootstrap parent-style">
         <div className="catod-container" style={{ height: this.props.height ? this.props.height : "400px" }}>
 
 
@@ -151,8 +165,10 @@ export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
                 rowData={this.state.rowData}
                 frameworkComponents={this.fixRendered()}
                 animateRows={true}
-                enableRtl={false}
+                enableRtl={style.direction==="rtl"?true:false}
                 onGridReady={this.onGridReady}
+                overlayLoadingTemplate={this.state.messageLoading}
+                overlayNoRowsTemplate={this.state.messageEmptyData}
               />
             </div>
           </div>
