@@ -39,7 +39,7 @@ interface IProps<T> {
 
 export class CatodGrid<T> extends Component<IProps<T>, IState<T>> {
 
-
+  
   gridApi: GridApi | null | undefined;
   gridColumnApi: ColumnApi | null | undefined;
   constructor(props: IProps<T>) {
