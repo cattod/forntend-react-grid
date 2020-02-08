@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+// import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { AgGridReact, AgGridReactProps } from 'ag-grid-react';
 import { ICatodcolumnDefs, ICatodActions, IAgColumnDefs, IMessage } from "./model"
 import { AllCommunityModules, GridReadyEvent, AgGridEvent } from "@ag-grid-community/all-modules";
-import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
-import "@ag-grid-community/all-modules/dist/styles/ag-theme-bootstrap.css";
+// import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
+ //import "@ag-grid-community/all-modules/dist/styles/ag-theme-bootstrap.css";
 import { Actions } from "./Actions"
 import { Module, GridApi, ColumnApi } from '@ag-grid-community/core';
 
