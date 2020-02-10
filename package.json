@@ -1,6 +1,6 @@
 {
-  "name": "grid-npm",
-  "version": "1.1.50",
+  "name": "@cattod/react-grid",
+  "version": "1.0.0",
   "description": "react typescript grid",
   "main": "build/index.js",
   "module": "build/index.es.js",
