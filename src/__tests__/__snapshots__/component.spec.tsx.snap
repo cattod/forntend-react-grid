@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component should show 'red' text 'Hello World' 1`] = `
+<div
+  className="ag-theme-bootstrap parent-style"
+>
+  <div
+    className="catod-container"
+    style={
+      Object {
+        "height": "50px",
+      }
+    }
+  >
+    <div
+      id="center"
+    >
+      <div
+        className="catod-grid-size"
+        id="myGrid"
+      >
+        <div
+          style={
+            Object {
+              "height": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
