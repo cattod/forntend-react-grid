@@ -1,0 +1,71 @@
+{
+  "name": "@cattod/react-grid",
+  "version": "0.0.2",
+  "description": "react typescript grid",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "style": "dist/styles.scss",
+  "jsnext:main": "build/index.es.js",
+  "scripts": {
+    "test": "jest --env=jsdom",
+    "build": "rollup -c"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css"
+    },
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
+  },
+  "files": [
+    "build",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cattod/forntend-react-grid.git"
+  },
+  "keywords": [
+    "react",
+    "grid",
+    "typescript"
+  ],
+  "author": "chiman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cattod/forntend-react-grid/issues"
+  },
+  "homepage": "https://github.com/cattod/forntend-react-grid#readme",
+  "devDependencies": {
+    "@types/jest": "^25.1.2",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-test-renderer": "^16.9.2",
+    "jest": "^25.1.0",
+    "jest-transform-css": "^2.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts-ts": "^3.1.0",
+    "react-test-renderer": "^16.12.0",
+    "rollup": "^1.31.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-scss": "^2.1.0",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "dependencies": {
+    "bootstrap-scss": "^4.4.1"
+  }
+}

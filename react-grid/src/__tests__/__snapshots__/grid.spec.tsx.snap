@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component should show 'red' text 'Hello World' 1`] = `
+<div
+  className="grid-body"
+>
+  <table
+    className="table table-bordered table-sm table-hover"
+  >
+    <thead
+      className="back-header"
+    >
+      <tr />
+    </thead>
+    <tbody />
+  </table>
+  <p
+    className="empty-grid"
+  >
+    400px
+  </p>
+</div>
+`;
