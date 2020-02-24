@@ -1,3 +1,5 @@
+@import 'bootstrap/scss/bootstrap.scss';
+
 .action-padding {
 
     margin: 1px;
@@ -22,20 +24,32 @@ tr:nth-child(odd){
 
  .grid-body{
      margin: 3px;
-     font-size: 13px;
-     
+     font-size: 13px;   
     
      table{
-         color: rgb(68, 68, 68);
-         
+         color: rgb(68, 68, 68);        
        thead{
-        color:#444;
-        
+        color:#444;       
         th{
-            font-weight: 600;
+            font-weight: 600;           
         }
        }
      }
+ }
+
+ .grid-body-right {
+    margin: 3px;
+    font-size: 13px;
+   text-align: right;   
+    table{
+        color: rgb(68, 68, 68);       
+      thead{
+       color:#444;      
+       th{
+           font-weight: 600;          
+       }
+      }
+    }
  }
 
  .action-cattod{
@@ -45,3 +59,8 @@ tr:nth-child(odd){
         color:#444;
     }
       }
+
+   .sort-icon{
+    width:12px;
+     margin-right:3px;
+   }

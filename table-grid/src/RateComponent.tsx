@@ -2,9 +2,7 @@ import React , {Component} from "react"
 import "./example.css"
 
 export class Example extends Component<any,any>{
-    constructor(props:any){
-        super(props)
-    }
+
     rateStar = ():any =>{
         let newStar = []
     for (let i = 0 ; i<6 ; i++) {
@@ -20,8 +18,6 @@ export class Example extends Component<any,any>{
 
     }
     render() {
-   
-console.log(this.props)
         return(
        <div> 
           {this.rateStar()} 

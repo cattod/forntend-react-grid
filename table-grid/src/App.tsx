@@ -8,6 +8,8 @@ import {Example} from "./RateComponent"
 import {ICatodActions,ICatodcolumnDefs} from "./Grid/Model"
 import {Footer} from "./changePage"
 import "./Grid/grid.scss"
+import {TestRef} from "./TestRef"
+import _ from "lodash"
 
 
 interface IRowData{
@@ -18,12 +20,7 @@ date?: string,
 rate?: number
 }
 
-interface IActions<T> {
-  title:string,
-  key?: string,
-  icon ?:string,
-  actionFn ?(data?: T):void
-}
+
 interface IProps{
  // dir: 'ltr'
 }
@@ -35,6 +32,21 @@ interface IState {
   page:number
 }
 
+function dynamicSort(property:any) {
+  var sortOrder = 1;
+  if(property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+  }
+  return function (a:any,b:any) {
+      /* next line works with strings and numbers, 
+       * and you may want to customize it to your needs
+       */
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+  }
+}
+
 class App extends React.Component <IProps,IState>{
   constructor(props:IProps) {
     super(props)
@@ -43,12 +55,14 @@ class App extends React.Component <IProps,IState>{
         {title:"Make",
           icon:"",
           key:"Make",
+          onSort:(sortType:"ascending"|"descending"|"none")=>{return this.sortHandle(sortType,"make") },
           valueGetter:(rowData)=>{return this.valueGetter1(rowData)},
-         
+          displayValue: (rowData:IRowData) =>{return this.valueGetter1(rowData)}
           },
           {title:"Model",
           icon:"",
           key:"Model",
+          displayValue:(rowData)=>{return this.valueGetterFn1(rowData)},
           valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)}
           //  valueGetter?(data:T):void,
           //   displayValue? ():void
@@ -56,17 +70,24 @@ class App extends React.Component <IProps,IState>{
           {title:"Price",
           icon:"",
           key:"price",
-      
+          valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)},
+ 
+          displayValue:(rowData)=>{return rowData.price},
           },
           {title:"Date",
           icon:"",
           key:"date",
-      
+          displayValue:(rowData)=>{return rowData.date},
+          valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)}
+ 
           },
           {title:"Rate",
           icon:"",
           key:"rate",
-          displayValue: (rowData:IRowData) =>{return <Example data ={rowData}/>}
+         // valueGetter:(rowData)=>{return rowData.rate},
+          displayValue: (rowData:IRowData) =>{return <Example data ={rowData}/>},
+          valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)}
+ 
       
           }
       ],
@@ -81,6 +102,8 @@ class App extends React.Component <IProps,IState>{
           { make: "Porsche", model: "Boxter", price: 72000, date:"20190/01/01", rate:3 }],
           page:0
     }
+
+   
 
   }
 
@@ -97,6 +120,17 @@ class App extends React.Component <IProps,IState>{
 }
 valueGetterFnp = (data:IRowData)=>{
   return data.price
+
+}
+
+sortHandle = (sortType:"ascending"|"descending"|"none",col:string) =>{
+switch(sortType){
+  case "ascending":  return _.sortBy( this.state.rowData, col )
+  case "descending":  return _.sortBy( this.state.rowData, col ).reverse()
+  case "none":  return  this.state.rowData
+  default: return this.state.rowData
+
+}
 
 }
 
@@ -139,11 +173,11 @@ handlePrev=(page:number) =>{
 
 
   render() {
-    // const style = document.querySelector(".app")
-    // console.log(style)
+
     const message= "there is not any data"
     return (
       <div className="App">
+        {/* <TestRef/> */}
           <Footer handleNext={this.handleNext} handlePrev={this.handlePrev}/>
             <Grid
  columnDef = {this.state.columnDefs}
