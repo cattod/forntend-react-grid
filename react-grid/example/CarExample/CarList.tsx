@@ -134,8 +134,6 @@ handlePrev=(page:number) =>{
 
 
   render() {
-    // const style = document.querySelector(".app")
-    // console.log(style)
     const message= "there is not any data"
     return (
       <div className="App">

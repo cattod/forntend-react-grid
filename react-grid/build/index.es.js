@@ -55,30 +55,61 @@ var Actions = /** @class */ (function (_super) {
     return Actions;
 }(React.Component));
 
+// import React, { Component } from "react"
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid(props) {
         var _this = _super.call(this, props) || this;
         _this._textAlign = true;
         _this.createHeader = function (newData) {
-            //    let newData =  this.props.dataRow 
-            // let newCol = Object.keys(newData[0])  
             var newCol = Object.keys(newData[0]).map(function (item) {
                 return {
                     title: item[0].toUpperCase() + item.slice(1),
                     key: item,
-                    icon: ""
+                    icon: "",
+                    displayValue: function () { return ""; },
+                    valueGetter: function () { return ""; }
                 };
             });
             return newCol;
         };
+        _this.sortHandle = function (sortType, onSort) {
+            if (onSort)
+                _this.setState({ sortType: sortType, dataRow: onSort(sortType.sortType) });
+        };
+        _this.selectSortType = function (data) {
+            if (data.onSort) {
+                switch (_this.state.sortType.sortType) {
+                    case "ascending":
+                        return _this.headerTemplate(data, { sortType: "descending" }, "dascending-sort.svg");
+                    case "descending":
+                        return _this.headerTemplate(data, { sortType: "none" }, "ascending-sort.svg");
+                    case "none":
+                        return _this.headerTemplate(data, { sortType: "ascending" }, "sort.svg");
+                    default: return;
+                }
+            }
+            return data.title;
+        };
+        _this.headerTemplate = function (data, type, imgSrc) {
+            return (React__default.createElement("div", null,
+                data.title,
+                React__default.createElement("img", { onClick: function () { return _this.sortHandle(type, data.onSort); }, className: "sort-icon", src: imgSrc })));
+        };
         _this.state = { loading: false,
             headerDef: undefined,
             message: "There is not any data for show in grid",
-            textAlign: true
+            textAlign: true,
+            sortType: { sortType: "none" },
+            dataRow: []
         };
         return _this;
     }
+    Grid.prototype.componentDidUpdate = function (prevProps) {
+        if (this.props.dataRow !== prevProps.dataRow) {
+            this.setState({ dataRow: this.props.dataRow });
+        }
+    };
     Grid.prototype.componentDidMount = function () {
         var _a;
         var element = document.querySelector('.grid-body');
@@ -90,34 +121,27 @@ var Grid = /** @class */ (function (_super) {
             }
         }
         var newHeader = undefined;
+        var newDataRow = [];
+        if (this.props.dataRow) {
+            newDataRow = this.props.dataRow;
+        }
         if (this.props.dataRow && !this.props.columnDef) {
             newHeader = this.createHeader(this.props.dataRow);
         }
         else if (this.props.columnDef) {
             newHeader = this.props.columnDef;
-            // this.setState({headerDef:this.props.columnDef})
         }
         if (this.props.actions) {
-            (_a = newHeader) === null || _a === void 0 ? void 0 : _a.push({ title: "", key: "action", icon: "" });
+            (_a = newHeader) === null || _a === void 0 ? void 0 : _a.push({ title: "", key: "action", icon: "", displayValue: function () { return ""; }, valueGetter: function () { return ""; } });
         }
-        this.setState({ headerDef: newHeader, textAlign: _TA });
+        this.setState({ headerDef: newHeader, textAlign: _TA, dataRow: newDataRow });
     };
     Grid.prototype.tableRow = function (rowData, colDef, key, actions) {
         if (key === "action" && actions) {
             return React__default.createElement(Actions, { rowData: rowData, colDef: colDef, actionsCatod: actions });
         }
         else {
-            if (colDef.displayValue && colDef.valueGetter) {
-                return rowData[key];
-            }
-            else if (colDef.displayValue) {
-                return colDef.displayValue(rowData);
-            }
-            else if (colDef.valueGetter) {
-                return colDef.valueGetter(rowData);
-            }
-            else
-                return rowData[key];
+            return colDef.displayValue(rowData);
         }
     };
     Grid.prototype.render = function () {
@@ -128,9 +152,9 @@ var Grid = /** @class */ (function (_super) {
                 React__default.createElement("table", { className: "table table-bordered table-sm table-hover" },
                     React__default.createElement("thead", { className: "back-header" },
                         React__default.createElement("tr", null, (_a = this.state.headerDef) === null || _a === void 0 ? void 0 : _a.map(function (item) {
-                            return (React__default.createElement("th", { scope: "col", key: item.key }, item.title));
+                            return (React__default.createElement("th", { scope: "col", key: item.key }, _this.selectSortType(item)));
                         }))),
-                    React__default.createElement("tbody", null, (_b = this.props.dataRow) === null || _b === void 0 ? void 0 : _b.map(function (item, index) {
+                    React__default.createElement("tbody", null, (_b = this.state.dataRow) === null || _b === void 0 ? void 0 : _b.map(function (item, index) {
                         var _a;
                         return (React__default.createElement("tr", { key: index }, (_a = _this.state.headerDef) === null || _a === void 0 ? void 0 : _a.map(function (element, id) {
                             return (React__default.createElement("td", { key: id }, _this.tableRow(item, element, element.key, _this.props.actions)));

@@ -2,8 +2,9 @@ export interface ICatodcolumnDefs<T> {
     title:string,
      icon?: string,
      key: string,
+     onSort?(sortType:'ascending'|'descending'|'none'):T[]
       valueGetter?(data:T):string|number|boolean|undefined,
-       displayValue?(data:T):React.FunctionComponent | React.ReactNode//(aa:(data:T)=>string|number|boolean):void
+       displayValue(data:T):React.FunctionComponent | React.ReactNode | string | number//(aa:(data:T)=>string|number|boolean):void
   }
   
   
@@ -21,4 +22,9 @@ export interface ICatodcolumnDefs<T> {
     actions?: ICatodActions<T>[]
     message?: string
   }
+
+  export interface ISort{
+    sortType: "ascending"|"descending"|"none"
+}
+  
   
