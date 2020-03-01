@@ -55,7 +55,6 @@ var Actions = /** @class */ (function (_super) {
     return Actions;
 }(React.Component));
 
-// import React, { Component } from "react"
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid(props) {
@@ -81,20 +80,37 @@ var Grid = /** @class */ (function (_super) {
             if (data.onSort) {
                 switch (_this.state.sortType.sortType) {
                     case "ascending":
-                        return _this.headerTemplate(data, { sortType: "descending" }, "dascending-sort.svg");
+                        return React__default.createElement("div", null,
+                            data.title,
+                            _this.upSvg(data));
                     case "descending":
-                        return _this.headerTemplate(data, { sortType: "none" }, "ascending-sort.svg");
+                        return React__default.createElement("div", null,
+                            data.title,
+                            _this.downSvg(data));
                     case "none":
-                        return _this.headerTemplate(data, { sortType: "ascending" }, "sort.svg");
+                        return React__default.createElement("div", null,
+                            data.title,
+                            _this.sortSvg(data));
                     default: return;
                 }
             }
             return data.title;
         };
-        _this.headerTemplate = function (data, type, imgSrc) {
-            return (React__default.createElement("div", null,
-                data.title,
-                React__default.createElement("img", { onClick: function () { return _this.sortHandle(type, data.onSort); }, className: "sort-icon", src: imgSrc })));
+        _this.sortSvg = function (data) {
+            return React__default.createElement("svg", { height: "15", width: "20", name: "sort", onClick: function () { return _this.sortHandle({ sortType: "ascending" }, data.onSort); } },
+                React__default.createElement("polyline", { points: "8,5 11,0 14,5 11,0 11,15", className: "sort-svg" }),
+                React__default.createElement("polyline", { points: "5,0 5,15 2,10 5,15 8,10", className: "sort-svg" }),
+                "Sorry, your browser does not support inline SVG.");
+        };
+        _this.upSvg = function (data) {
+            return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: "descending" }, data.onSort); } },
+                React__default.createElement("polyline", { points: "2,5 5,0 8,5 5,0 5,15", className: "sort-svg" }),
+                "Sorry, your browser does not support inline SVG.");
+        };
+        _this.downSvg = function (data) {
+            return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: "none" }, data.onSort); } },
+                React__default.createElement("polyline", { points: "5,0 5,15 2,10 5,15 8,10 ", className: "sort-svg" }),
+                "Sorry, your browser does not support inline SVG.");
         };
         _this.state = { loading: false,
             headerDef: undefined,

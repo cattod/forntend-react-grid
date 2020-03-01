@@ -7178,3 +7178,8 @@ tr:nth-child(odd) {
 .action-cattod button {
   font-size: 13px;
   color: #444; }
+
+.sort-svg {
+  fill: none;
+  stroke: #444;
+  stroke-width: 1; }

@@ -24,7 +24,9 @@ export declare class Grid<T> extends Component<IProps<T>, IState<T>> {
     tableRow(rowData: T, colDef: ICatodcolumnDefs<T>, key: string, actions?: ICatodActions<T>[]): {} | null | undefined;
     sortHandle: (sortType: ISort, onSort: ((sortType: "none" | "ascending" | "descending") => T[]) | undefined) => void;
     selectSortType: (data: ICatodcolumnDefs<T>) => string | JSX.Element | undefined;
-    headerTemplate: (data: ICatodcolumnDefs<T>, type: ISort, imgSrc: string) => JSX.Element;
+    sortSvg: (data: ICatodcolumnDefs<T>) => JSX.Element;
+    upSvg: (data: ICatodcolumnDefs<T>) => JSX.Element;
+    downSvg: (data: ICatodcolumnDefs<T>) => JSX.Element;
     render(): JSX.Element;
 }
 export {};
