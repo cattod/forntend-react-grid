@@ -16,6 +16,7 @@ export class Actions<T> extends Component<IProps<T>>{
                     return (
 
                         <button key={index}
+                        title={item.title}
                             onClick={() => {
                                 if (item.actionFn)
                                     item.actionFn(this.props.rowData)
@@ -24,11 +25,11 @@ export class Actions<T> extends Component<IProps<T>>{
                         >
 
                             <span
-                                title={item.title}
+                               
                                 className={`fas fa-${item.icon}`}
                             >
                             </span>
-                            {item.title}
+                           
                         </button>
                     )
                 }) : null}

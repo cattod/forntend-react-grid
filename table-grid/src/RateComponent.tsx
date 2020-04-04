@@ -1,7 +1,7 @@
 import React , {Component} from "react"
 import "./example.css"
 
-export class Example extends Component<any,any>{
+export class RateStar extends Component<any,any>{
 
     rateStar = ():any =>{
         let newStar = []

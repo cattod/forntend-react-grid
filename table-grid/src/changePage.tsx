@@ -1,4 +1,5 @@
 import React , {Component} from "react"
+import "./App.css"
 
 interface IProps {
     handleNext(page:number):void
@@ -33,8 +34,8 @@ export class Footer extends Component<IProps,IState>{
  
         return(
             <div>
-        <button onClick={this.handleNext}>next</button>
-        <button onClick={this.handlePrev}>prev</button>
+        <button className="btnPage" onClick={this.handleNext}>next</button>
+        <button  className="btnPage" onClick={this.handlePrev}>prev</button>
         </div>
         )
     }

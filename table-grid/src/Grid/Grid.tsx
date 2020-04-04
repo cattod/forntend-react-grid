@@ -1,186 +1,229 @@
 import React, { Component } from "react"
-import { ICatodActions, ICatodcolumnDefs } from "./Model"
+import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps } from "./Model"
 import { Actions } from "./Actions"
+import { EnumConsts } from "./Consts"
 
-interface IProps<T> {
-    columnDef?: Array<ICatodcolumnDefs<T>>
-    dataRow?: T[]
-    actions?: ICatodActions<T>[]
-    rowNumber?: number
-    height?: string
-    message?: string
+// interface type for props of GridCattod
+interface IProps<T> extends ICattodGridProps<T> { }
+
+// extends ICatodcolumnDefs interface type and add sortType for manageing 
+// ascending or descending or none type sort easier for every column
+interface IHeaderDef<T> extends ICatodcolumnDefs<T> {
+    sortType?: ISort
 }
 
+//state interface type
 interface IState<T> {
-    dataRow?: T[]
-    loading: boolean,
-    headerDef: Array<ICatodcolumnDefs<T>> | undefined
+    headerDef: Array<IHeaderDef<T>> | undefined
     message: string,
     textAlign: boolean,
-    sortType: "ascending"|"descending"|"none"
+    sortType: { type: string, key: string }
 }
 
+//CatodGrid component
 export class Grid<T> extends Component<IProps<T>, IState<T>> {
-    _textAlign :boolean = true
+
     constructor(props: IProps<T>) {
         super(props)
-        this.state = { loading: false,
-             headerDef: undefined,
-              message: "There is not any data for show in grid",
-              textAlign:true,
-              sortType:"none",
-              dataRow:[]
-             }
-
-
+        this.state = {
+            headerDef: undefined,
+            message: EnumConsts.ThereIsNotAnyDataToShowInGrid,
+            textAlign: true,
+            sortType: { type: "", key: "" }
+            // sortType:{sortType:EnumConsts.None}     
+        }
     }
 
-    componentDidUpdate(prevProps: IProps<T>) {
-    
-    
-        if (this.props.dataRow !== prevProps.dataRow) {
-        
-            this.setState({  dataRow:this.props.dataRow})
-    
-        }
-      }
-
+    //prepare data for rendering
     componentDidMount() {
         const element: Element | null = document.querySelector('.grid-body')
         const style: CSSStyleDeclaration | "" = element ? getComputedStyle(element) : ""
-        let _TA = this.state.textAlign
-        if (style !== "") {
-         
-          if (style.direction === "rtl") {
-            _TA = false
-          }
-        }
-        let newHeader: Array<ICatodcolumnDefs<T>> | undefined = undefined
-        let newDataRow:T[] = []
-        if (this.props.dataRow) {
-            newDataRow = this.props.dataRow
-        }
-        if (this.props.dataRow && !this.props.columnDef) {
-            newHeader = this.createHeader(this.props.dataRow)
-            
-        } else if (this.props.columnDef) {
-            newHeader = this.props.columnDef
-            // this.setState({headerDef:this.props.columnDef})
-        }
+        let _TA:boolean = this.state.textAlign
+        let newHeader: Array<ICatodcolumnDefs<T>> = this.props.columnDef
 
-        if (this.props.actions) {
-            newHeader?.push({ title: "", key: "action", icon: "" ,displayValue:()=>{return""}, valueGetter:()=>{return ""}})
-        }
-        this.setState({ headerDef: newHeader, textAlign:_TA , dataRow:newDataRow})
-    }
+        //check for direction in props and parent project direction
+        if (this.props.direction) {
+            _TA = this.props.direction === "right" ? false : true
+        } else {
+            if (style !== "") {
 
-    createHeader = (newData: T[]): Array<ICatodcolumnDefs<T>> => {
-        //    let newData =  this.props.dataRow 
-
-        // let newCol = Object.keys(newData[0])  
-        let newCol = Object.keys(newData[0]).map((item) => {
-            return {
-                title: item[0].toUpperCase() + item.slice(1),
-                key: item,
-                icon: "",
-                displayValue:()=>{return""},
-                valueGetter:()=>{return""}
+                if (style.direction === EnumConsts.RTL) {
+                    _TA = false
+                }
             }
-
-        })
-
-        return newCol
+        }
 
 
 
+        //check for action in grid props and add column to grid
+        if (this.props.actions) {
+            newHeader?.push({
+                title: "",
+                key: EnumConsts.Action,
+                icon: "",
+                displayValue: () => { return "" },
+                valueGetter: () => { return "" }
+            })
+        }
+        //update state for new changes
+        this.setState({ headerDef: newHeader, textAlign: _TA })
     }
 
-    tableRow<T, K extends keyof T>(rowData: T, colDef: ICatodcolumnDefs<T>, key: K, actions?: ICatodActions<T>[]) {
+    //this function describe cell value to display
 
-
-        if (key === "action" && actions) {
-            return <Actions rowData={rowData} colDef={colDef} actionsCatod={actions} />
+    rowCell(rowData: T, colDef: ICatodcolumnDefs<T>, key: string, actions?: ICatodActions<T>[]) {
+        // there is a discrete for action data, which need our component definition
+        if (key === EnumConsts.Action && actions) {
+            return <Actions
+                rowData={rowData}
+                colDef={colDef}
+                actionsCatod={actions}
+            />
         } else {
             return colDef.displayValue(rowData)
-//             if (colDef.displayValue && colDef.valueGetter) {
-
-//                 return rowData[key]
-//             } else if (colDef.displayValue) {
-
-//                 return colDef.displayValue(rowData)
-//             }
-
-//             else if (colDef.valueGetter) {
-//                 return colDef.valueGetter(rowData)
-//             } else return rowData[key]
         }
     }
-    sortHandle = (sortType:"ascending"|"descending"|"none", onSort:any)=>{
-      
-        this.setState({sortType:sortType, dataRow:onSort(sortType)})
-    }
 
-    headerTemplate = (data:ICatodcolumnDefs<T>)=>{
-        if (data.onSort){
-            switch(this.state.sortType){
-                case "ascending":                 
-                return <div >{data.title}
-                <img  onClick={()=>this.sortHandle("descending",data.onSort)} className="sort-icon"  src="dascending-sort.svg"/> </div>
-                case "descending": 
-                return <div >{ data.title}
-                <img  onClick={()=>this.sortHandle("none",data.onSort)} className="sort-icon" src="ascending-sort.svg"/>
-                </div>
-                case "none":
-                    return <div >{ data.title}
-                    <img  onClick={()=>this.sortHandle("ascending",data.onSort)} className="sort-icon" src="sort.svg"/>
-                    </div>
-                default: return
+    //it is the function when sort icon clicked
+    //run onSort function in props and update sort type for column
+    sortHandle = (sortType: ISort, key: string): void => {
+
+        if (this.state.headerDef) {
+            if (this.props.onSort) {
+                this.props.onSort(key, sortType.sortType)
+
             }
-          
+            this.setState({ sortType: { type: sortType.sortType, key: key } })
         }
-    
-return data.title
+
+    }
+
+
+
+    //add sort icon to header of table for sortable column and set header title
+    selectSortType = (data: IHeaderDef<T>) => {
+        if (data.sortable) {
+            if (data.key === this.state.sortType.key) {
+                switch (this.state.sortType.type) {
+                    case EnumConsts.Ascending:
+                        return <div >{data.title}{this.upSvg(data)}</div>
+                    case EnumConsts.Descending:
+                        return <div >{data.title}{this.downSvg(data)}</div>
+                    case EnumConsts.None:
+                        return <div >{data.title}{this.unsortSVG(data)}</div>
+                    default: return <div >{data.title}{this.unsortSVG(data)}</div>
+                }
+            } else return <div >{data.title}{this.unsortSVG(data)}</div>
+
+        }
+
+
+        return data.title
+    }
+
+    //create svg for unsort icon
+    unsortSVG = (data: ICatodcolumnDefs<T>) => {
+        return <svg height="15" width="20" name="sort"
+            onClick={() => this.sortHandle({ sortType: EnumConsts.Ascending }, data.key)}
+        >
+            <polyline points="8,5 11,0 14,5 11,0 11,15"
+                className="sort-svg"
+            />
+            <polyline points="5,0 5,15 2,10 5,15 8,10" className="sort-svg" />
+     Sorry, your browser does not support inline SVG.
+   </svg>
+    }
+
+    //create svg for descending sort icon
+    upSvg = (data: ICatodcolumnDefs<T>) => {
+        return <svg height="15" width="10" name="up"
+            onClick={() => this.sortHandle({ sortType: EnumConsts.Descending }, data.key)}
+        >
+            <polyline points="2,5 5,0 8,5 5,0 5,15" className="sort-svg" />
+        Sorry, your browser does not support inline SVG.
+      </svg>
+    }
+
+    //create svg for ascending sort icon
+    downSvg = (data: ICatodcolumnDefs<T>) => {
+        return <svg height="15" width="10" name="up"
+            onClick={() => this.sortHandle({ sortType: EnumConsts.None }, data.key)}
+        >
+            <polyline points="5,0 5,15 2,10 5,15 8,10 " className="sort-svg" />
+        Sorry, your browser does not support inline SVG.
+      </svg>
+    }
+
+    //condition for when there is not any data for display
+    displayGrid = () => {
+
+        if (this.props.dataRow.length < 1 && this.props.columnDef.length < 1) {
+            return <p className="empty-grid">
+                {this.props.message ?
+                    this.props.message :
+                    this.state.message}
+            </p>
+
+        }
+        else if (this.props.dataRow.length < 1 && this.props.columnDef.length > 0) {
+            return (
+                <div>
+                    {this.tableGrid()}
+                    <p className="empty-grid">{this.props.message ? this.props.message : this.state.message}</p>
+                </div>
+            )
+
+        }
+        return this.tableGrid()
+
+    }
+
+    //this function create data table grid
+    tableGrid = () => {
+        //
+        return (
+            <table className="table table-bordered table-sm table-hover row-hover-catod">
+                <thead className="back-header">
+                    <tr>
+                        {this.state.headerDef?.map((item: IHeaderDef<T>, index) => {
+                            return (
+                                <th scope="col" key={item.key} id={item.key}>{this.selectSortType(item)}</th>
+                            )
+                        })}
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.props.dataRow.map((item: T, index: number) => {
+
+                        return (
+                            <tr key={index} >
+                                {this.state.headerDef?.map((element: IHeaderDef<T>, id: number) => {
+                                    return (
+                                        <td key={id} >
+                                            {this.rowCell(item, element, element.key, this.props.actions)}
+
+                                        </td>
+
+                                    )
+                                })}
+                            </tr>
+                        )
+                    })}
+
+                </tbody>
+            </table>
+        )
     }
 
     render() {
 
         return (
 
-            <div className={this.state.textAlign?"grid-body":"grid-body-right"} >
-                {this.state.loading ? <div>loading...</div> :
-                    <table className="table table-bordered table-sm table-hover">
-                        <thead className="back-header">
-                            <tr>
-                                {this.state.headerDef?.map((item, index) => {
-                                    return (
-                                        <th scope="col" key={item.key}>{this.headerTemplate(item)}</th>
-                                    )
-                                })}
+            <div className={this.state.textAlign ? "grid-body" : "grid-body-right"}
+            >
+                {this.displayGrid()}
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.dataRow?.map((item: any, index:number) => {
-
-                                return (
-                                    <tr key={index}>
-                                        {this.state.headerDef?.map((element: any, id) => {
-                                            return (
-                                                <td key={id}>
-                                                    {this.tableRow(item, element, element.key, this.props.actions)}
-
-                                                </td>
-
-                                            )
-                                        })}
-                                    </tr>
-                                )
-                            })}
-
-                        </tbody>
-                    </table>}
-
-                {!this.props.columnDef && !this.props.dataRow ? <p className="empty-grid">{this.props.message ? this.props.message : this.state.message}</p> : null}
             </div>
 
         )
