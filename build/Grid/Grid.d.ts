@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps } from "./Model";
+import "./grid.scss";
 interface IProps<T> extends ICattodGridProps<T> {
 }
 interface IState<T> {

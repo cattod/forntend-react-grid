@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps } from "./Model"
 import { Actions } from "./Actions"
 import { EnumConsts } from "./Consts"
+import "./grid.scss"
 
 // interface type for props of GridCattod
 interface IProps<T> extends ICattodGridProps<T> { }

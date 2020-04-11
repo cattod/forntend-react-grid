@@ -2,8 +2,8 @@
 A react typescript module that returns the plural form of any noun
 ## Installation 
 ```sh
-npm install @catod/react-grid --save
-yarn add @catod/react-grid
+npm install@cattod/react-grid --save
+yarn add @cattod/react-grid
 
 ```
 ## Usage
@@ -11,8 +11,8 @@ yarn add @catod/react-grid
 ### React TypeScript
 ```typescript
 import React , {Component} from "react"
-import { CatodGrid ,Catodcolumn,CatodActions} from '@catod/react-grid';
-import "@catod/react-grid/build/index.css"
+import { CatodGrid ,Catodcolumn,CatodActions} from '@cattod/react-grid';
+import "@cattod/react-grid/build/index.css"
 interface IRowData {
     make ?:string,
 model ?: string,
@@ -34,12 +34,12 @@ export class Example extends Component<{}, IState> {
         {title:"Make",
           icon:"",
           key:"Make",
-          valueGetter:(rowData)=>{return this.valueGetterMake(rowData)}         
+          displayValue:(rowData)=>{return this.displayValueMake(rowData)}         
           },
           {title:"Model",
           icon:"",
           key:"Model",
-          valueGetter:(rowData)=>{return this.valueGetterModel(rowData)}
+          displayValue:(rowData)=>{return this.displayValueModel(rowData)}
           },
           {title:"Price",
           icon:"",
@@ -66,13 +66,13 @@ export class Example extends Component<{}, IState> {
   }
 
   
- valueGetterMake = (data:IRowData):any=>{
+ displayValueMake = (data:IRowData):any=>{
   
  
   return `${data.make } ${data.model}`
 
 }
- valueGetterModel = (data:IRowData):any=>{
+ displayValueModel = (data:IRowData):any=>{
 
   return data.model
 

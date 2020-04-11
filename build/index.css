@@ -7149,10 +7149,13 @@ tr:nth-child(odd) {
 .empty-grid {
   text-align: center;
   border: 1px solid #ddd;
-  width: 80%;
+  width: 100%;
   margin: 0px auto;
   padding: 6px;
   border-radius: 5px; }
+
+.empty-dataRow {
+  text-align: center; }
 
 .grid-body {
   margin: 3px;
@@ -7165,6 +7168,7 @@ tr:nth-child(odd) {
         font-weight: 600; }
 
 .grid-body-right {
+  direction: rtl;
   margin: 3px;
   font-size: 13px;
   text-align: right; }
@@ -7175,9 +7179,21 @@ tr:nth-child(odd) {
       .grid-body-right table thead th {
         font-weight: 600; }
 
-.action-cattod button {
-  font-size: 13px;
-  color: #444; }
+.action-cattod {
+  display: none; }
+  .action-cattod button {
+    font-size: 13px;
+    color: #444; }
+
+.row-hover-catod tbody tr:hover .action-cattod {
+  display: inline; }
+  .row-hover-catod tbody tr:hover .action-cattod button {
+    font-size: 13px;
+    color: #444; }
+
+.sort-icon {
+  width: 12px;
+  margin-right: 3px; }
 
 .sort-svg {
   fill: none;
