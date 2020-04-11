@@ -60,32 +60,33 @@ test(`Component should show the table whith 2 column which the titles are "Make"
   // expect(tree).toMatchSnapshot();
 });
 
-// test(`Component should show the table whith 2 column which the titles are "Make" and "Model" whith sort icon`, () => {
-//   interface IRowData{
-//     make ?:string,
-//     model ?: string,
-//     price ?: number,
-//     }
-//   let columns:Catodcolumn<IRowData>[] = [{title:"Make",
-//       sortable:true,
-//   key:"Make",
-//   displayValue: (rowData:IRowData) =>{return rowData?.make}
+test(`Component should show the table whith 2 column which the titles are "Make" and "Model" whith sort icon`, () => {
+  interface IRowData{
+    make ?:string,
+    model ?: string,
+    price ?: number,
+    }
+  let columns:Catodcolumn<IRowData>[] = [{title:"Make",
+      sortable:true,
+  key:"Make",
+  displayValue: (rowData:IRowData) =>{return rowData?.make}
   
-//   },
-//   {title:"Model",
+  },
+  {title:"Model",
  
-//   key:"Model",
-//   displayValue:(rowData:IRowData)=>{return rowData?.model},
-//   valueGetter:(rowData:IRowData)=>{return rowData?.model}
-//   },]
-//   const component = create(<CatodGrid columnDef={columns} dataRow={[]} />);
-//   const testInstance = component.root;
-//   let dataZero = testInstance.findByType(CatodGrid).props.dataRow[0]
-//   expect(testInstance.findByType(CatodGrid).props.columnDef[0].key).toBe("Make");
-//   expect(testInstance.findByType(CatodGrid).props.columnDef[1].key).toBe("Model");
-//   expect(testInstance.findByType(CatodGrid).props.columnDef[0].displayValue(dataZero)).toBeUndefined();
-//   expect(testInstance.findByProps({className: "empty-grid"}).children).toEqual([EnumConsts.ThereIsNotAnyDataToShowInGrid]);
+  key:"Model",
+  displayValue:(rowData:IRowData)=>{return rowData?.model},
+  valueGetter:(rowData:IRowData)=>{return rowData?.model}
+  },]
+  const component = create(<CatodGrid columnDef={columns} dataRow={[]} />);
+  const testInstance = component.root;
+  let dataZero = testInstance.findByType(CatodGrid).props.dataRow[0]
+  expect(testInstance.findByType(CatodGrid).props.columnDef[0].key).toBe("Make");
+  expect(testInstance.findByType(CatodGrid).props.columnDef[1].key).toBe("Model");
+  // expect(testInstance.findByProps({className:"sort-svg"}).children).toBeCalled();
+  expect(testInstance.findByType(CatodGrid).props.columnDef[0].displayValue(dataZero)).toBeUndefined();
+  expect(testInstance.findByProps({className: "empty-grid"}).children).toEqual([EnumConsts.ThereIsNotAnyDataToShowInGrid]);
  
-//   // let tree = component.toJSON();
-//   // expect(tree).toMatchSnapshot();
-// });
+  // let tree = component.toJSON();
+  // expect(tree).toMatchSnapshot();
+});
