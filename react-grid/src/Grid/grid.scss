@@ -1,4 +1,9 @@
 @import 'bootstrap-scss/bootstrap.scss';
+$background-color-prime:#f6f6f6;
+$border-color :  #ddd;
+$text-color: rgb(68, 68, 68);
+$header-text-color : #444;
+
 .action-padding {
 
     margin: 1px;
@@ -8,27 +13,31 @@
 }
 
 tr:nth-child(odd){
-    background-color:#f6f6f6;
+    background-color:$background-color-prime;
  }
 
  .empty-grid{
      text-align: center;
-     border: 1px solid #ddd;
-     width:80%;
+     border: 1px solid $border-color;
+     width:100%;
   margin:0px auto;
   padding: 6px;
   border-radius: 5px;
 
  }
 
+ .empty-dataRow{ 
+     text-align: center;
+        }
+
  .grid-body{
      margin: 3px;
      font-size: 13px;   
     
      table{
-         color: rgb(68, 68, 68);        
+         color: $text-color;        
        thead{
-        color:#444;       
+        color:$header-text-color;       
         th{
             font-weight: 600;           
         }
@@ -37,13 +46,14 @@ tr:nth-child(odd){
  }
 
  .grid-body-right {
+     direction: rtl;
     margin: 3px;
     font-size: 13px;
    text-align: right;   
     table{
-        color: rgb(68, 68, 68);       
+        color: $text-color;       
       thead{
-       color:#444;      
+       color:$header-text-color;      
        th{
            font-weight: 600;          
        }
@@ -51,17 +61,39 @@ tr:nth-child(odd){
     }
  }
 
- .action-cattod{
-   
-    button{
-        font-size: 13px;
-        color:#444;
-    }
+
+
+      .action-cattod{
+   display:none;
+  
+        button{
+            font-size: 13px;
+            color:$header-text-color;
+
+        }
+        
+          }
+
+      .row-hover-catod tbody tr:hover{
+         
+          .action-cattod{
+           
+            display: inline;
+            button{
+                font-size: 13px;
+                color:$header-text-color;
+    
+            }
+          }
       }
 
-      
+   .sort-icon{
+    width:12px;
+     margin-right:3px;
+   }
+
    .sort-svg{
     fill:none;
-    stroke:#444;
+    stroke:$header-text-color;
     stroke-width:1
    }
