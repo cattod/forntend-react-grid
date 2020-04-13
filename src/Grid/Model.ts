@@ -20,7 +20,13 @@ export interface ICatodcolumnDefs<T> {
     actions?: ICatodActions<T>[]
     message?: string|React.ReactElement|React.ReactNode
     direction?:"right"|"left"
-    onSort?(columnKey?:string, sortType?:"ascending"|"descending"|"none"):void
+    onSort?(sorts:IDefaultSort[]):void
+  defaultSort?:IDefaultSort[]
+    multiSort?:boolean
+  }
+
+  export interface IDefaultSort{
+    sortType: "ascending"|"descending"|"none", columnKey:string
   }
 
   export interface ISort{

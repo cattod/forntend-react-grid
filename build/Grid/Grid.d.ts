@@ -1,18 +1,15 @@
 import React, { Component } from "react";
-import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps } from "./Model";
-import "./grid.scss";
+import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps, IDefaultSort } from "./Model";
 interface IProps<T> extends ICattodGridProps<T> {
 }
 interface IState<T> {
     headerDef: Array<ICatodcolumnDefs<T>> | undefined;
     message: string;
     textAlign: boolean;
-    sortType: {
-        type: string;
-        key: string;
-    };
+    sortType: IDefaultSort[];
+    lastSortType: IDefaultSort[];
 }
-export declare class Grid<T> extends Component<IProps<T>, IState<T>> {
+declare class GridClass<T> extends Component<IProps<T>, IState<T>> {
     constructor(props: IProps<T>);
     /**
   * prepare component after mounting componet.
@@ -53,7 +50,7 @@ export declare class Grid<T> extends Component<IProps<T>, IState<T>> {
   *
   * @beta
   */
-    sortHandle: (sortType: ISort, key: string) => void;
+    sortHandle(sortType: ISort, key: string): Promise<void>;
     /**
   * Returns header value to display.
   * Add sort icon to header of table for sortable column and set header title
@@ -127,4 +124,5 @@ export declare class Grid<T> extends Component<IProps<T>, IState<T>> {
     tableGrid: () => JSX.Element;
     render(): JSX.Element;
 }
+export declare const Grid: React.MemoExoticComponent<typeof GridClass>;
 export {};

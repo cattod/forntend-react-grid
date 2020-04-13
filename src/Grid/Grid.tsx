@@ -1,8 +1,7 @@
 import React, { Component } from "react"
-import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps } from "./Model"
+import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps,IDefaultSort } from "./Model"
 import { Actions } from "./Actions"
 import { EnumConsts } from "./Consts"
-import "./grid.scss"
 
 // interface type for props of GridCattod
 interface IProps<T> extends ICattodGridProps<T> { }
@@ -12,19 +11,21 @@ interface IState<T> {
     headerDef: Array<ICatodcolumnDefs<T>> | undefined
     message: string,
     textAlign: boolean,
-    sortType: { type: string, key: string }
+    sortType:IDefaultSort[]
+    lastSortType:IDefaultSort[]
 }
 
 //CatodGrid component
-export class Grid<T> extends Component<IProps<T>, IState<T>> {
+ class GridClass<T> extends Component<IProps<T>, IState<T>> {
 
     constructor(props: IProps<T>) {
         super(props)
         this.state = {
+            lastSortType:[],
             headerDef: undefined,
             message: EnumConsts.ThereIsNotAnyDataToShowInGrid,
             textAlign: true,
-            sortType: { type: "", key: "" }
+            sortType: []
             // sortType:{sortType:EnumConsts.None}     
         }
     }
@@ -47,6 +48,7 @@ export class Grid<T> extends Component<IProps<T>, IState<T>> {
         const style: CSSStyleDeclaration | "" = element ? getComputedStyle(element) : ""
         let _TA:boolean = this.state.textAlign
         let newHeader: Array<ICatodcolumnDefs<T>> = this.props.columnDef
+        let newSortType: IDefaultSort[] = []
 
         //check for direction in props and parent project direction
         if (this.props.direction) {
@@ -69,11 +71,35 @@ export class Grid<T> extends Component<IProps<T>, IState<T>> {
                 key: EnumConsts.Action,
                 
                 displayValue: () => { return "" },
-                valueGetter: () => { return "" }
+               
             })
         }
+        if(newHeader.length){
+            for (let item of newHeader){
+               if (item.sortable){
+                  
+                newSortType.push({columnKey:item.key, sortType:"none"})
+                
+               } 
+            }
+          
+        }
+        
+        if (this.props.defaultSort?.length){
+            for (let j in this.props.defaultSort) {
+                for (let i in newSortType){
+                    if (this.props.defaultSort[j].columnKey === newSortType[i].columnKey){
+                       
+                       newSortType.splice(Number(i), 1)                       
+                        newSortType.unshift(this.props.defaultSort[j])
+                    }
+             
+                 }
+            }
+          
+        }
         //update state for new changes
-        this.setState({ headerDef: newHeader, textAlign: _TA })
+        this.setState({ headerDef: newHeader, textAlign: _TA , sortType:newSortType,lastSortType:newSortType})
     }
 
     /**
@@ -118,17 +144,31 @@ export class Grid<T> extends Component<IProps<T>, IState<T>> {
    * @beta
    */
 
-    sortHandle = (sortType: ISort, key: string): void => {
+   async sortHandle (sortType: ISort, key: string) {
+        let newSortType = this.state.sortType
+        
+        for (let j in this.state.sortType) {           
+                if (this.state.sortType[j].columnKey ===key){
+                   
+                   newSortType.splice(Number(j), 1)                       
+                    newSortType.unshift({sortType:sortType.sortType, columnKey:key})
+                }
+         
+            
+        }
 
         if (this.state.headerDef) {
             if (this.props.onSort) {
-                this.props.onSort(key, sortType.sortType)
-
+              await  this.props.onSort(newSortType)               
+                this.setState({ sortType: newSortType })
+               
             }
-            this.setState({ sortType: { type: sortType.sortType, key: key } })
+           
         }
 
     }
+
+
 
      /**
    * Returns header value to display.
@@ -143,20 +183,30 @@ export class Grid<T> extends Component<IProps<T>, IState<T>> {
    * @beta
    */
     selectSortType = (data: ICatodcolumnDefs<T>) => {
+        
         if (data.sortable) {
-            if (data.key === this.state.sortType.key) {
-                switch (this.state.sortType.type) {
-                    case EnumConsts.Ascending:
-                        return <div >{data.title}{this.upSvg(data)}</div>
-                    case EnumConsts.Descending:
-                        return <div >{data.title}{this.downSvg(data)}</div>
-                    case EnumConsts.None:
+            for (let i in this.state.sortType) {
+                if (data.key === this.state.sortType[i]?.columnKey) {
+                    switch (this.state.sortType[i].sortType) {
+                        case EnumConsts.Ascending:
+                            return <div >{data.title}{this.upSvg(data)}</div>
+                        case EnumConsts.Descending:
+                            return <div >{data.title}{this.downSvg(data)}</div>
+                        case EnumConsts.None:
+                            return <div >{data.title}{this.unsortSVG(data)}</div>
+                        default: return <div >{data.title}{this.unsortSVG(data)}</div>
+                    }
+                } else {
+                    if (!this.props.multiSort) {
                         return <div >{data.title}{this.unsortSVG(data)}</div>
-                    default: return <div >{data.title}{this.unsortSVG(data)}</div>
-                }
-            } else return <div >{data.title}{this.unsortSVG(data)}</div>
+                    }
 
-        }
+                }
+               
+            }
+           
+
+       }
 
 
         return data.title
@@ -320,4 +370,5 @@ export class Grid<T> extends Component<IProps<T>, IState<T>> {
 
 }
 
+export const Grid = React.memo(GridClass);
 
