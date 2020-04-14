@@ -394,7 +394,7 @@ var CatodGrid = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     CatodGrid.prototype.render = function () {
-        return (React.createElement(Grid, { columnDef: this.props.columnDef, dataRow: this.props.dataRow, actions: this.props.actions, message: this.props.message, direction: this.props.direction, onSort: this.props.onSort }));
+        return (React.createElement(Grid, { columnDef: this.props.columnDef, dataRow: this.props.dataRow, actions: this.props.actions, message: this.props.message, direction: this.props.direction, onSort: this.props.onSort, multiSort: this.props.multiSort }));
     };
     return CatodGrid;
 }(React.Component));

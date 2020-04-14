@@ -20,6 +20,7 @@ export class CatodGrid<T> extends React.Component<ICattodGridProps<T>> {
     message = {this.props.message}
     direction = {this.props.direction}
     onSort = {this.props.onSort}
+    multiSort ={this.props.multiSort}
     />
     ) ;
   }
