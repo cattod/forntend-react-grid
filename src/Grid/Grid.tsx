@@ -321,7 +321,9 @@ interface IState<T> {
     tableGrid = () => {
         //
         return (
-            <table className="table table-bordered table-sm table-hover row-hover-catod">
+            <table 
+            className={`${this.props.className} table row-hover-catod  table-hover`}>
+           
                 <thead className="back-header">
                     <tr>
                         {this.state.headerDef?.map((item: ICatodcolumnDefs<T>) => {

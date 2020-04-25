@@ -20,6 +20,7 @@ export interface ICattodGridProps<T> {
     onSort?(sorts: IDefaultSort[]): void;
     defaultSort?: IDefaultSort[];
     multiSort?: boolean;
+    className?: string;
 }
 export interface IDefaultSort {
     sortType: "ascending" | "descending" | "none";

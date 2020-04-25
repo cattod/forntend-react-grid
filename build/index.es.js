@@ -264,7 +264,7 @@ var GridClass = /** @class */ (function (_super) {
         _this.tableGrid = function () {
             var _a;
             //
-            return (React__default.createElement("table", { className: "table table-bordered table-sm table-hover row-hover-catod" },
+            return (React__default.createElement("table", { className: _this.props.className + " table row-hover-catod  table-hover" },
                 React__default.createElement("thead", { className: "back-header" },
                     React__default.createElement("tr", null, (_a = _this.state.headerDef) === null || _a === void 0 ? void 0 : _a.map(function (item) {
                         return (React__default.createElement("th", { scope: "col", key: item.key, id: item.key }, _this.selectSortType(item)));
@@ -394,7 +394,7 @@ var CatodGrid = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     CatodGrid.prototype.render = function () {
-        return (React.createElement(Grid, { columnDef: this.props.columnDef, dataRow: this.props.dataRow, actions: this.props.actions, message: this.props.message, direction: this.props.direction, onSort: this.props.onSort, multiSort: this.props.multiSort }));
+        return (React.createElement(Grid, { columnDef: this.props.columnDef, dataRow: this.props.dataRow, actions: this.props.actions, message: this.props.message, direction: this.props.direction, onSort: this.props.onSort, multiSort: this.props.multiSort, className: this.props.className }));
     };
     return CatodGrid;
 }(React.Component));
