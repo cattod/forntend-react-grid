@@ -24,7 +24,7 @@ export class Actions<T> extends Component<IProps<T>>{
 
                             <span
                                 title={item.title}
-                                className={`fas fa-${item.icon}`}
+                                className={`${item.icon}`}
                             >
                             </span>
                             {item.title}

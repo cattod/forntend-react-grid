@@ -3,7 +3,6 @@ export interface ICatodcolumnDefs<T> {
     title: string;
     key: string;
     sortable?: boolean;
-    valueGetter?(data: T): string | number | boolean | undefined;
     displayValue(data: T): React.FunctionComponent | React.ReactNode | string | number | boolean;
 }
 export interface ICatodActions<T> {

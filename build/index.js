@@ -85,7 +85,7 @@ var Actions = /** @class */ (function (_super) {
                     if (item.actionFn)
                         item.actionFn(_this.props.rowData);
                 }, type: "button", className: "btn btn-light btn-sm action-padding" },
-                React__default.createElement("span", { title: item.title, className: "fas fa-" + item.icon }),
+                React__default.createElement("span", { title: item.title, className: "" + item.icon }),
                 item.title));
         }) : null));
     };

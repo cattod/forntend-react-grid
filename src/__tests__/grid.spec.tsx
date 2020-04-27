@@ -45,8 +45,7 @@ test(`Component should show the table whith 2 column which the titles are "Make"
   {title:"Model",
  
   key:"Model",
-  displayValue:(rowData:IRowData)=>{return rowData?.model},
-  valueGetter:(rowData:IRowData)=>{return rowData?.model}
+  displayValue:(rowData:IRowData)=>{return rowData?.model}
   },]
   const component = create(<CatodGrid columnDef={columns} dataRow={[]} />);
   const testInstance = component.root;
@@ -76,7 +75,6 @@ test(`Component should show the table whith 2 column which the titles are "Make"
  
   key:"Model",
   displayValue:(rowData:IRowData)=>{return rowData?.model},
-  valueGetter:(rowData:IRowData)=>{return rowData?.model}
   },]
   const component = create(<CatodGrid columnDef={columns} dataRow={[]} />);
   const testInstance = component.root;

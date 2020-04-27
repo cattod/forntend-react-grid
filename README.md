@@ -32,21 +32,21 @@ export class Example extends Component<{}, IState> {
     this.state = {
        columnDefs: [
         {title:"Make",
-          icon:"",
+         
           key:"Make",
           displayValue:(rowData)=>{return this.displayValueMake(rowData)}         
           },
           {title:"Model",
-          icon:"",
+        
           key:"Model",
           displayValue:(rowData)=>{return this.displayValueModel(rowData)}
           },
           {title:"Price",
-          icon:"",
+          
           key:"price"      
           },
           {title:"Rate",
-          icon:"",
+         
           key:"rate",
           displayValue: () =>{return StarRate}
       

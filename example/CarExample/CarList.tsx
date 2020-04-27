@@ -40,19 +40,16 @@ class CarListE extends React.Component <IProps,IState>{
         {title:"Make",
       
           key:"Make",
-          valueGetter:(rowData)=>{return this.valueGetter1(rowData)},
           displayValue: (rowData:IRowData) =>{return this.valueGetter1(rowData)}
           },
           {title:"Model",
          
           key:"Model",
           displayValue:(rowData)=>{return this.valueGetterFn1(rowData)},
-          valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)}
           },
           {title:"Price",
          
           key:"price",
-          valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)},
  
           displayValue:(rowData)=>{return rowData.price},
           },
@@ -60,49 +57,43 @@ class CarListE extends React.Component <IProps,IState>{
          
           key:"date",
           displayValue:(rowData)=>{return rowData.date},
-          valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)}
  
           },
           {title:"Name",
           
           key:"name",
           displayValue:(rowData)=>{return rowData.nmae},
-          valueGetter:(rowData)=>{return rowData.nmae}
  
           },
           {title:"Family",
         
           key:"family",
           displayValue:(rowData)=>{return rowData.family},
-          valueGetter:(rowData)=>{return rowData.family}
  
           },
           {title:"Country",
           
           key:"country",
           displayValue:(rowData)=>{return rowData.country},
-          valueGetter:(rowData)=>{return rowData.country}
  
           },
           {title:"Color",
           
           key:"color",
           displayValue:(rowData)=>{return rowData.color},
-          valueGetter:(rowData)=>{return rowData.color}
  
           },
           {title:"Rate",
        
           key:"rate",
           displayValue: (rowData:IRowData) =>{return <RateStar data ={rowData}/>},
-          valueGetter:(rowData)=>{return this.valueGetterFn1(rowData)}
  
       
           }
       ],
        actions: [
-        {title:"Delete" , icon: "trash-alt", actionFn:(data:IRowData)=>{ this.removeRow(data)}},
-        {title:"Edit" , icon: "edit", actionFn:(data:IRowData)=>{this.addRow(data)}}
+        {title:"Delete" , icon: "fa fa-trash-alt", actionFn:(data:IRowData)=>{ this.removeRow(data)}},
+        {title:"Edit" , icon: "fa fa-edit", actionFn:(data:IRowData)=>{this.addRow(data)}}
         
         ],
          rowData :  [
