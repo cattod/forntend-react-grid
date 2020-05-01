@@ -147,7 +147,9 @@ interface IState<T> {
    async sortHandle (sortType: ISort, key: string) {
         let newSortType = this.state.sortType
         
-        for (let j in this.state.sortType) {           
+        if (!this.props.multiSort){
+            for (let j in this.state.sortType) {  
+                newSortType[j].sortType ="none"         
                 if (this.state.sortType[j].columnKey ===key){
                    
                    newSortType.splice(Number(j), 1)                       
@@ -156,16 +158,17 @@ interface IState<T> {
          
             
         }
-
-        if (this.state.headerDef) {
-            if (this.props.onSort) {
-              await  this.props.onSort(newSortType)               
-                this.setState({ sortType: newSortType })
-               
-            }
-           
+        } else {
+            for (let j in this.state.sortType) {           
+                if (this.state.sortType[j].columnKey ===key){
+                   
+                   newSortType.splice(Number(j), 1)                       
+                    newSortType.unshift({sortType:sortType.sortType, columnKey:key})
+                }
+         
+            
         }
-
+        }
     }
 
 

@@ -63,7 +63,7 @@ declare class GridClass<T> extends Component<IProps<T>, IState<T>> {
   *
   * @beta
   */
-    selectSortType: (data: ICatodcolumnDefs<T>) => string | JSX.Element;
+    selectSortType: (data: ICatodcolumnDefs<T>) => {} | null | undefined;
     /**
 * Returns svg for unsort icon.
 *

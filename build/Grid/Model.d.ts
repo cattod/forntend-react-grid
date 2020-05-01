@@ -1,6 +1,6 @@
 /// <reference types="react" />
 export interface ICatodcolumnDefs<T> {
-    title: string;
+    title: React.FunctionComponent | React.ReactNode | string | number;
     key: string;
     sortable?: boolean;
     displayValue(data: T): React.FunctionComponent | React.ReactNode | string | number | boolean;
