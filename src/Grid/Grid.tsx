@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps,IDefaultSort } from "./Model"
+import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps, IDefaultSort } from "./Model"
 import { Actions } from "./Actions"
 import { EnumConsts } from "./Consts"
 
@@ -11,17 +11,17 @@ interface IState<T> {
     headerDef: Array<ICatodcolumnDefs<T>> | undefined
     message: string,
     textAlign: boolean,
-    sortType:IDefaultSort[]
-    lastSortType:IDefaultSort[]
+    sortType: IDefaultSort[]
+    lastSortType: IDefaultSort[]
 }
 
 //CatodGrid component
- class GridClass<T> extends Component<IProps<T>, IState<T>> {
+class GridClass<T> extends Component<IProps<T>, IState<T>> {
 
     constructor(props: IProps<T>) {
         super(props)
         this.state = {
-            lastSortType:[],
+            lastSortType: [],
             headerDef: undefined,
             message: EnumConsts.ThereIsNotAnyDataToShowInGrid,
             textAlign: true,
@@ -31,22 +31,22 @@ interface IState<T> {
     }
 
     //prepare data for rendering
-     /**
-   * prepare component after mounting componet.
-   * fix direction of the component for stylesheet
-   * prepare actions column if there is actions in props
-   *
-   * @remarks
-   * This method is part of the {@link core-library#React | React subsystem}.
-   *
-   *
-   * @beta
-   */
+    /**
+  * prepare component after mounting componet.
+  * fix direction of the component for stylesheet
+  * prepare actions column if there is actions in props
+  *
+  * @remarks
+  * This method is part of the {@link core-library#React | React subsystem}.
+  *
+  *
+  * @beta
+  */
 
     componentDidMount() {
         const element: Element | null = document.querySelector('.grid-body')
         const style: CSSStyleDeclaration | "" = element ? getComputedStyle(element) : ""
-        let _TA:boolean = this.state.textAlign
+        let _TA: boolean = this.state.textAlign
         let newHeader: Array<ICatodcolumnDefs<T>> = this.props.columnDef
         let newSortType: IDefaultSort[] = []
 
@@ -69,37 +69,37 @@ interface IState<T> {
             newHeader?.push({
                 title: "",
                 key: EnumConsts.Action,
-                
+
                 displayValue: () => { return "" },
-               
+
             })
         }
-        if(newHeader.length){
-            for (let item of newHeader){
-               if (item.sortable){
-                  
-                newSortType.push({columnKey:item.key, sortType:"none"})
-                
-               } 
+        if (newHeader.length) {
+            for (let item of newHeader) {
+                if (item.sortable) {
+
+                    newSortType.push({ columnKey: item.key, sortType: "none" })
+
+                }
             }
-          
+
         }
-        
-        if (this.props.defaultSort?.length){
+
+        if (this.props.defaultSort?.length) {
             for (let j in this.props.defaultSort) {
-                for (let i in newSortType){
-                    if (this.props.defaultSort[j].columnKey === newSortType[i].columnKey){
-                       
-                       newSortType.splice(Number(i), 1)                       
+                for (let i in newSortType) {
+                    if (this.props.defaultSort[j].columnKey === newSortType[i].columnKey) {
+
+                        newSortType.splice(Number(i), 1)
                         newSortType.unshift(this.props.defaultSort[j])
                     }
-             
-                 }
+
+                }
             }
-          
+
         }
         //update state for new changes
-        this.setState({ headerDef: newHeader, textAlign: _TA , sortType:newSortType,lastSortType:newSortType})
+        this.setState({ headerDef: newHeader, textAlign: _TA, sortType: newSortType, lastSortType: newSortType })
     }
 
     /**
@@ -118,8 +118,8 @@ interface IState<T> {
    * @beta
    */
 
-    rowCell=(rowData: T, colDef: ICatodcolumnDefs<T>, key: string, actions?: ICatodActions<T>[]):
-    React.FunctionComponent | React.ReactNode|string|number|boolean=> {
+    rowCell = (rowData: T, colDef: ICatodcolumnDefs<T>, key: string, actions?: ICatodActions<T>[]):
+        React.FunctionComponent | React.ReactNode | string | number | boolean => {
         // there is a discrete for action data, which need our component definition
         if (key === EnumConsts.Action && actions) {
             return <Actions
@@ -132,73 +132,73 @@ interface IState<T> {
         }
     }
 
-     /**
-   * Run onSort function in props and update sort type for column.
-   *
-   * @remarks
-   * This method is called when sort icon clicked.
-   *
-   * @param sortType - The first input ISort
-   * @param key - The second input string
-   *
-   * @beta
-   */
+    /**
+  * Run onSort function in props and update sort type for column.
+  *
+  * @remarks
+  * This method is called when sort icon clicked.
+  *
+  * @param sortType - The first input ISort
+  * @param key - The second input string
+  *
+  * @beta
+  */
 
-  async sortHandle (sortType: ISort, key: string) {
-    let newSortType = this.state.sortType
-    if (!this.props.multiSort){
-        for (let j in this.state.sortType) {  
-            newSortType[j].sortType ="none"         
-            if (this.state.sortType[j].columnKey ===key){
-               
-               newSortType.splice(Number(j), 1)                       
-                newSortType.unshift({sortType:sortType.sortType, columnKey:key})
-            }
-     
-        
-    }
-    } else {
-        for (let j in this.state.sortType) {           
-            if (this.state.sortType[j].columnKey ===key){
-               
-               newSortType.splice(Number(j), 1)                       
-                newSortType.unshift({sortType:sortType.sortType, columnKey:key})
-            }
-     
-        
-    }
-    }
-    
-  
-    if (this.state.headerDef) {
+    async sortHandle(sortType: ISort, key: string) {
+        let newSortType = this.state.sortType
+        if (!this.props.multiSort) {
+            for (let j in this.state.sortType) {
+                newSortType[j].sortType = "none"
+                if (this.state.sortType[j].columnKey === key) {
 
-        if (this.props.onSort) {
-           await  this.props.onSort(newSortType)               
-            this.setState({ sortType: newSortType })
-           
+                    newSortType.splice(Number(j), 1)
+                    newSortType.unshift({ sortType: sortType.sortType, columnKey: key })
+                }
+
+
+            }
+        } else {
+            for (let j in this.state.sortType) {
+                if (this.state.sortType[j].columnKey === key) {
+
+                    newSortType.splice(Number(j), 1)
+                    newSortType.unshift({ sortType: sortType.sortType, columnKey: key })
+                }
+
+
+            }
         }
-       
+
+
+        if (this.state.headerDef) {
+
+            if (this.props.onSort) {
+                await this.props.onSort(newSortType)
+                this.setState({ sortType: newSortType })
+
+            }
+
+        }
+
     }
 
-}
 
 
 
-
-     /**
-   * Returns header value to display.
-   * Add sort icon to header of table for sortable column and set header title
-   *
-   * @remarks
-   * This method is part of the {@link core-library#Grid | Grid subsystem}.
-   *
-   * @param data - The first input  ICatodcolumnDefs<T>
-   * @returns - The displayable value in the header of every column
-   *
-   * @beta
-   */
+    /**
+  * Returns header value to display.
+  * Add sort icon to header of table for sortable column and set header title
+  *
+  * @remarks
+  * This method is part of the {@link core-library#Grid | Grid subsystem}.
+  *
+  * @param data - The first input  ICatodcolumnDefs<T>
+  * @returns - The displayable value in the header of every column
+  *
+  * @beta
+  */
     selectSortType = (data: ICatodcolumnDefs<T>) => {
-        
+
         if (data.sortable) {
             for (let i in this.state.sortType) {
                 if (data.key === this.state.sortType[i]?.columnKey) {
@@ -217,27 +217,27 @@ interface IState<T> {
                     }
 
                 }
-               
-            }
-           
 
-       }
+            }
+
+
+        }
 
 
         return data.title
     }
 
-         /**
-   * Returns svg for unsort icon.
-   *
-   * @remarks
-   * This method is part of the {@link core-library#Grid | Grid subsystem}.
-   *
-   * @param data - The first input  ICatodcolumnDefs<T>
-   * @returns - The svg for unsort icon.
-   *
-   * @beta
-   */
+    /**
+* Returns svg for unsort icon.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @param data - The first input  ICatodcolumnDefs<T>
+* @returns - The svg for unsort icon.
+*
+* @beta
+*/
     unsortSVG = (data: ICatodcolumnDefs<T>) => {
         return <svg height="15" width="20" name="sort"
             onClick={() => this.sortHandle({ sortType: EnumConsts.Ascending }, data.key)}
@@ -250,17 +250,17 @@ interface IState<T> {
    </svg>
     }
 
-            /**
-   * Returns svg for descending sort icon.
-   *
-   * @remarks
-   * This method is part of the {@link core-library#Grid | Grid subsystem}.
-   *
-   * @param data - The first input  ICatodcolumnDefs<T>
-   * @returns - The svg for descending sort icon.
-   *
-   * @beta
-   */
+    /**
+* Returns svg for descending sort icon.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @param data - The first input  ICatodcolumnDefs<T>
+* @returns - The svg for descending sort icon.
+*
+* @beta
+*/
     upSvg = (data: ICatodcolumnDefs<T>) => {
         return <svg height="15" width="10" name="up"
             onClick={() => this.sortHandle({ sortType: EnumConsts.Descending }, data.key)}
@@ -269,18 +269,18 @@ interface IState<T> {
         Sorry, your browser does not support inline SVG.
       </svg>
     }
-    
-            /**
-   * Returns svg for ascending sort icon.
-   *
-   * @remarks
-   * This method is part of the {@link core-library#Grid | Grid subsystem}.
-   *
-   * @param data - The first input  ICatodcolumnDefs<T>
-   * @returns - The svg for ascending sort icon.
-   *
-   * @beta
-   */
+
+    /**
+* Returns svg for ascending sort icon.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @param data - The first input  ICatodcolumnDefs<T>
+* @returns - The svg for ascending sort icon.
+*
+* @beta
+*/
     downSvg = (data: ICatodcolumnDefs<T>) => {
         return <svg height="15" width="10" name="up"
             onClick={() => this.sortHandle({ sortType: EnumConsts.None }, data.key)}
@@ -290,16 +290,16 @@ interface IState<T> {
       </svg>
     }
 
-                /**
-   * Returns the displayable xhtml for different condition.
-   *
-   * @remarks
-   * This method is part of the {@link core-library#Grid | Grid subsystem}.
-   *
-   * @returns - The displayable xhtml for different condition.
-   *
-   * @beta
-   */
+    /**
+* Returns the displayable xhtml for different condition.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @returns - The displayable xhtml for different condition.
+*
+* @beta
+*/
     displayGrid = () => {
 
         if (this.props.dataRow.length < 1 && this.props.columnDef.length < 1) {
@@ -322,23 +322,23 @@ interface IState<T> {
         return this.tableGrid()
 
     }
-                    /**
-   * Returns the displayable data table.
-   *
-   * @remarks
-   * This method is part of the {@link core-library#Grid | Grid subsystem}.
-   *
-   * @returns - The displayable data table.
-   *
-   * @beta
-   */
-    
+    /**
+* Returns the displayable data table.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @returns - The displayable data table.
+*
+* @beta
+*/
+
     tableGrid = () => {
         //
         return (
-            <table 
-            className={`${this.props.className} table row-hover-catod  table-hover`}>
-           
+            <table
+                className={`${this.props.className} table row-hover-catod  table-hover`}>
+
                 <thead className="back-header">
                     <tr>
                         {this.state.headerDef?.map((item: ICatodcolumnDefs<T>) => {
