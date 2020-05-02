@@ -144,43 +144,44 @@ interface IState<T> {
    * @beta
    */
 
-   async sortHandle (sortType: ISort, key: string) {
-        let newSortType = this.state.sortType
-        
-        if (!this.props.multiSort){
-            for (let j in this.state.sortType) {  
-                newSortType[j].sortType ="none"         
-                if (this.state.sortType[j].columnKey ===key){
-                   
-                   newSortType.splice(Number(j), 1)                       
-                    newSortType.unshift({sortType:sortType.sortType, columnKey:key})
-                }
-         
-            
-        }
-        } else {
-            for (let j in this.state.sortType) {           
-                if (this.state.sortType[j].columnKey ===key){
-                   
-                   newSortType.splice(Number(j), 1)                       
-                    newSortType.unshift({sortType:sortType.sortType, columnKey:key})
-                }
-         
-            
-        }
-        }
-          
-        if (this.state.headerDef) {
-            console.log(this.state.headerDef)
-
-            if (this.props.onSort) {
-              await  this.props.onSort(newSortType)               
-                this.setState({ sortType: newSortType })
+  async sortHandle (sortType: ISort, key: string) {
+    let newSortType = this.state.sortType
+    if (!this.props.multiSort){
+        for (let j in this.state.sortType) {  
+            newSortType[j].sortType ="none"         
+            if (this.state.sortType[j].columnKey ===key){
                
+               newSortType.splice(Number(j), 1)                       
+                newSortType.unshift({sortType:sortType.sortType, columnKey:key})
             }
+     
+        
+    }
+    } else {
+        for (let j in this.state.sortType) {           
+            if (this.state.sortType[j].columnKey ===key){
+               
+               newSortType.splice(Number(j), 1)                       
+                newSortType.unshift({sortType:sortType.sortType, columnKey:key})
+            }
+     
+        
+    }
+    }
+    
+  
+    if (this.state.headerDef) {
+
+        if (this.props.onSort) {
+           await  this.props.onSort(newSortType)               
+            this.setState({ sortType: newSortType })
            
         }
+       
     }
+
+}
+
 
 
 
