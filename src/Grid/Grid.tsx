@@ -169,6 +169,17 @@ interface IState<T> {
             
         }
         }
+          
+        if (this.state.headerDef) {
+            console.log(this.state.headerDef)
+
+            if (this.props.onSort) {
+              await  this.props.onSort(newSortType)               
+                this.setState({ sortType: newSortType })
+               
+            }
+           
+        }
     }
 
 

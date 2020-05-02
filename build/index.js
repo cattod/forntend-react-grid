@@ -360,25 +360,36 @@ var GridClass = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             var newSortType, j, j;
             return __generator(this, function (_a) {
-                newSortType = this.state.sortType;
-                if (!this.props.multiSort) {
-                    for (j in this.state.sortType) {
-                        newSortType[j].sortType = "none";
-                        if (this.state.sortType[j].columnKey === key) {
-                            newSortType.splice(Number(j), 1);
-                            newSortType.unshift({ sortType: sortType.sortType, columnKey: key });
+                switch (_a.label) {
+                    case 0:
+                        newSortType = this.state.sortType;
+                        if (!this.props.multiSort) {
+                            for (j in this.state.sortType) {
+                                newSortType[j].sortType = "none";
+                                if (this.state.sortType[j].columnKey === key) {
+                                    newSortType.splice(Number(j), 1);
+                                    newSortType.unshift({ sortType: sortType.sortType, columnKey: key });
+                                }
+                            }
                         }
-                    }
-                }
-                else {
-                    for (j in this.state.sortType) {
-                        if (this.state.sortType[j].columnKey === key) {
-                            newSortType.splice(Number(j), 1);
-                            newSortType.unshift({ sortType: sortType.sortType, columnKey: key });
+                        else {
+                            for (j in this.state.sortType) {
+                                if (this.state.sortType[j].columnKey === key) {
+                                    newSortType.splice(Number(j), 1);
+                                    newSortType.unshift({ sortType: sortType.sortType, columnKey: key });
+                                }
+                            }
                         }
-                    }
+                        if (!this.state.headerDef) return [3 /*break*/, 2];
+                        console.log(this.state.headerDef);
+                        if (!this.props.onSort) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.props.onSort(newSortType)];
+                    case 1:
+                        _a.sent();
+                        this.setState({ sortType: newSortType });
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
                 }
-                return [2 /*return*/];
             });
         });
     };
