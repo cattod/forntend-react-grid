@@ -180,16 +180,16 @@ var GridClass = /** @class */ (function (_super) {
             return data.title;
         };
         /**
-  * Returns svg for unsort icon.
-  *
-  * @remarks
-  * This method is part of the {@link core-library#Grid | Grid subsystem}.
-  *
-  * @param data - The first input  ICatodcolumnDefs<T>
-  * @returns - The svg for unsort icon.
-  *
-  * @beta
-  */
+    * Returns svg for unsort icon.
+    *
+    * @remarks
+    * This method is part of the {@link core-library#Grid | Grid subsystem}.
+    *
+    * @param data - The first input  ICatodcolumnDefs<T>
+    * @returns - The svg for unsort icon.
+    *
+    * @beta
+    */
         _this.unsortSVG = function (data) {
             return React__default.createElement("svg", { height: "15", width: "20", name: "sort", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Ascending }, data.key); } },
                 React__default.createElement("polyline", { points: "8,5 11,0 14,5 11,0 11,15", className: "sort-svg" }),
@@ -197,47 +197,47 @@ var GridClass = /** @class */ (function (_super) {
                 "Sorry, your browser does not support inline SVG.");
         };
         /**
-* Returns svg for descending sort icon.
-*
-* @remarks
-* This method is part of the {@link core-library#Grid | Grid subsystem}.
-*
-* @param data - The first input  ICatodcolumnDefs<T>
-* @returns - The svg for descending sort icon.
-*
-* @beta
-*/
+    * Returns svg for descending sort icon.
+    *
+    * @remarks
+    * This method is part of the {@link core-library#Grid | Grid subsystem}.
+    *
+    * @param data - The first input  ICatodcolumnDefs<T>
+    * @returns - The svg for descending sort icon.
+    *
+    * @beta
+    */
         _this.upSvg = function (data) {
             return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Descending }, data.key); } },
                 React__default.createElement("polyline", { points: "2,5 5,0 8,5 5,0 5,15", className: "sort-svg" }),
                 "Sorry, your browser does not support inline SVG.");
         };
         /**
-* Returns svg for ascending sort icon.
-*
-* @remarks
-* This method is part of the {@link core-library#Grid | Grid subsystem}.
-*
-* @param data - The first input  ICatodcolumnDefs<T>
-* @returns - The svg for ascending sort icon.
-*
-* @beta
-*/
+    * Returns svg for ascending sort icon.
+    *
+    * @remarks
+    * This method is part of the {@link core-library#Grid | Grid subsystem}.
+    *
+    * @param data - The first input  ICatodcolumnDefs<T>
+    * @returns - The svg for ascending sort icon.
+    *
+    * @beta
+    */
         _this.downSvg = function (data) {
             return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.None }, data.key); } },
                 React__default.createElement("polyline", { points: "5,0 5,15 2,10 5,15 8,10 ", className: "sort-svg" }),
                 "Sorry, your browser does not support inline SVG.");
         };
         /**
-* Returns the displayable xhtml for different condition.
-*
-* @remarks
-* This method is part of the {@link core-library#Grid | Grid subsystem}.
-*
-* @returns - The displayable xhtml for different condition.
-*
-* @beta
-*/
+    * Returns the displayable xhtml for different condition.
+    *
+    * @remarks
+    * This method is part of the {@link core-library#Grid | Grid subsystem}.
+    *
+    * @returns - The displayable xhtml for different condition.
+    *
+    * @beta
+    */
         _this.displayGrid = function () {
             if (_this.props.dataRow.length < 1 && _this.props.columnDef.length < 1) {
                 return React__default.createElement("p", { className: "empty-grid" }, _this.props.message ?
@@ -252,15 +252,15 @@ var GridClass = /** @class */ (function (_super) {
             return _this.tableGrid();
         };
         /**
-* Returns the displayable data table.
-*
-* @remarks
-* This method is part of the {@link core-library#Grid | Grid subsystem}.
-*
-* @returns - The displayable data table.
-*
-* @beta
-*/
+    * Returns the displayable data table.
+    *
+    * @remarks
+    * This method is part of the {@link core-library#Grid | Grid subsystem}.
+    *
+    * @returns - The displayable data table.
+    *
+    * @beta
+    */
         _this.tableGrid = function () {
             var _a;
             //
@@ -381,7 +381,6 @@ var GridClass = /** @class */ (function (_super) {
                             }
                         }
                         if (!this.state.headerDef) return [3 /*break*/, 2];
-                        console.log(this.state.headerDef);
                         if (!this.props.onSort) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.props.onSort(newSortType)];
                     case 1:
