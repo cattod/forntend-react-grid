@@ -105,9 +105,9 @@ var EnumConsts;
 })(EnumConsts || (EnumConsts = {}));
 
 //CatodGrid component
-var GridClass = /** @class */ (function (_super) {
-    __extends(GridClass, _super);
-    function GridClass(props) {
+var Grid1 = /** @class */ (function (_super) {
+    __extends(Grid1, _super);
+    function Grid1(props) {
         var _this = _super.call(this, props) || this;
         /**
        * Returns cell value to display
@@ -180,91 +180,80 @@ var GridClass = /** @class */ (function (_super) {
             return data.title;
         };
         /**
-    * Returns svg for unsort icon.
-    *
-    * @remarks
-    * This method is part of the {@link core-library#Grid | Grid subsystem}.
-    *
-    * @param data - The first input  ICatodcolumnDefs<T>
-    * @returns - The svg for unsort icon.
-    *
-    * @beta
-    */
+  * Returns svg for unsort icon.
+  *
+  * @remarks
+  * This method is part of the {@link core-library#Grid | Grid subsystem}.
+  *
+  * @param data - The first input  ICatodcolumnDefs<T>
+  * @returns - The svg for unsort icon.
+  *
+  * @beta
+  */
         _this.unsortSVG = function (data) {
-            return React__default.createElement("svg", { height: "15", width: "20", name: "sort", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Ascending }, data.key); } },
-                React__default.createElement("polyline", { points: "8,5 11,0 14,5 11,0 11,15", className: "sort-svg" }),
-                React__default.createElement("polyline", { points: "5,0 5,15 2,10 5,15 8,10", className: "sort-svg" }),
-                "Sorry, your browser does not support inline SVG.");
+            return React__default.createElement("img", { src: "sort-png-1.png", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Ascending }, data.key); }, className: "image-icon" });
         };
         /**
-    * Returns svg for descending sort icon.
-    *
-    * @remarks
-    * This method is part of the {@link core-library#Grid | Grid subsystem}.
-    *
-    * @param data - The first input  ICatodcolumnDefs<T>
-    * @returns - The svg for descending sort icon.
-    *
-    * @beta
-    */
+* Returns svg for descending sort icon.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @param data - The first input  ICatodcolumnDefs<T>
+* @returns - The svg for descending sort icon.
+*
+* @beta
+*/
         _this.upSvg = function (data) {
-            return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Descending }, data.key); } },
-                React__default.createElement("polyline", { points: "2,5 5,0 8,5 5,0 5,15", className: "sort-svg" }),
-                "Sorry, your browser does not support inline SVG.");
+            return React__default.createElement("img", { src: "up-sort.png", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Descending }, data.key); }, className: "image-icon" });
         };
         /**
-    * Returns svg for ascending sort icon.
-    *
-    * @remarks
-    * This method is part of the {@link core-library#Grid | Grid subsystem}.
-    *
-    * @param data - The first input  ICatodcolumnDefs<T>
-    * @returns - The svg for ascending sort icon.
-    *
-    * @beta
-    */
+* Returns svg for ascending sort icon.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @param data - The first input  ICatodcolumnDefs<T>
+* @returns - The svg for ascending sort icon.
+*
+* @beta
+*/
         _this.downSvg = function (data) {
-            return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.None }, data.key); } },
-                React__default.createElement("polyline", { points: "5,0 5,15 2,10 5,15 8,10 ", className: "sort-svg" }),
-                "Sorry, your browser does not support inline SVG.");
+            return React__default.createElement("img", { src: "down-sort.svg", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.None }, data.key); }, className: "image-icon" });
         };
         /**
-    * Returns the displayable xhtml for different condition.
-    *
-    * @remarks
-    * This method is part of the {@link core-library#Grid | Grid subsystem}.
-    *
-    * @returns - The displayable xhtml for different condition.
-    *
-    * @beta
-    */
+* Returns the displayable xhtml for different condition.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @returns - The displayable xhtml for different condition.
+*
+* @beta
+*/
         _this.displayGrid = function () {
             if (_this.props.dataRow.length < 1 && _this.props.columnDef.length < 1) {
                 return React__default.createElement("p", { className: "empty-grid" }, _this.props.message ?
                     _this.props.message :
                     _this.state.message);
             }
-            else if (_this.props.dataRow.length < 1 && _this.props.columnDef.length > 0) {
-                return (React__default.createElement("div", null,
-                    _this.tableGrid(),
-                    React__default.createElement("p", { className: "empty-grid" }, _this.props.message ? _this.props.message : _this.state.message)));
-            }
-            return _this.tableGrid();
+            return React__default.createElement("div", { className: "scroll table-responsive" }, _this.tableGrid());
         };
         /**
-    * Returns the displayable data table.
-    *
-    * @remarks
-    * This method is part of the {@link core-library#Grid | Grid subsystem}.
-    *
-    * @returns - The displayable data table.
-    *
-    * @beta
-    */
+* Returns the displayable data table.
+*
+* @remarks
+* This method is part of the {@link core-library#Grid | Grid subsystem}.
+*
+* @returns - The displayable data table.
+*
+* @beta
+*/
         _this.tableGrid = function () {
             var _a;
             //
-            return (React__default.createElement("table", { className: _this.props.className + " table row-hover-catod  table-hover" },
+            return (React__default.createElement("table", { className: _this.props.className + " table " + (_this.props.actions ? "row-hover-catod" : "") },
+                _this.props.dataRow.length < 1 ? React__default.createElement("caption", { className: "empty-grid" }, _this.props.message ? _this.props.message : _this.state.message) : null,
                 React__default.createElement("thead", { className: "back-header" },
                     React__default.createElement("tr", null, (_a = _this.state.headerDef) === null || _a === void 0 ? void 0 : _a.map(function (item) {
                         return (React__default.createElement("th", { scope: "col", key: item.key, id: item.key }, _this.selectSortType(item)));
@@ -272,7 +261,7 @@ var GridClass = /** @class */ (function (_super) {
                 React__default.createElement("tbody", null, _this.props.dataRow.map(function (item, index) {
                     var _a;
                     return (React__default.createElement("tr", { key: index }, (_a = _this.state.headerDef) === null || _a === void 0 ? void 0 : _a.map(function (element, id) {
-                        return (React__default.createElement("td", { key: id }, _this.rowCell(item, element, element.key, _this.props.actions)));
+                        return (React__default.createElement("td", { key: id, className: "break-text-grid" }, _this.rowCell(item, element, element.key, _this.props.actions)));
                     })));
                 }))));
         };
@@ -298,7 +287,7 @@ var GridClass = /** @class */ (function (_super) {
   *
   * @beta
   */
-    GridClass.prototype.componentDidMount = function () {
+    Grid1.prototype.componentDidMount = function () {
         var _a, _b;
         var element = document.querySelector('.grid-body');
         var style = element ? getComputedStyle(element) : "";
@@ -356,7 +345,7 @@ var GridClass = /** @class */ (function (_super) {
   *
   * @beta
   */
-    GridClass.prototype.sortHandle = function (sortType, key) {
+    Grid1.prototype.sortHandle = function (sortType, key) {
         return __awaiter(this, void 0, void 0, function () {
             var newSortType, j, j;
             return __generator(this, function (_a) {
@@ -392,12 +381,12 @@ var GridClass = /** @class */ (function (_super) {
             });
         });
     };
-    GridClass.prototype.render = function () {
+    Grid1.prototype.render = function () {
         return (React__default.createElement("div", { className: this.state.textAlign ? "grid-body" : "grid-body-right" }, this.displayGrid()));
     };
-    return GridClass;
+    return Grid1;
 }(React.Component));
-var Grid = React__default.memo(GridClass);
+var Grid = React__default.memo(Grid1);
 
 var CatodGrid = /** @class */ (function (_super) {
     __extends(CatodGrid, _super);

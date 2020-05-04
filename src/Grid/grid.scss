@@ -1,8 +1,9 @@
-@import 'bootstrap-scss/bootstrap.scss';
+
 $background-color-prime:#f6f6f6;
 $border-color :  #ddd;
 $text-color: rgb(68, 68, 68);
 $header-text-color : #444;
+
 
 .action-padding {
 
@@ -20,7 +21,7 @@ tr:nth-child(odd){
      text-align: center;
      border: 1px solid $border-color;
      width:100%;
-  margin:0px auto;
+  margin:5px auto;
   padding: 6px;
   border-radius: 5px;
 
@@ -62,7 +63,6 @@ tr:nth-child(odd){
  }
 
 
-
       .action-cattod{
    display:none;
   
@@ -82,6 +82,8 @@ tr:nth-child(odd){
             button{
                 font-size: 13px;
                 color:$header-text-color;
+               
+                
     
             }
           }
@@ -97,3 +99,16 @@ tr:nth-child(odd){
     stroke:$header-text-color;
     stroke-width:1
    }
+
+   .scroll
+{
+overflow-x:auto;
+}
+
+.break-text-grid{
+    word-break: break-all;
+}
+
+.image-icon{
+    width: 10px;
+}

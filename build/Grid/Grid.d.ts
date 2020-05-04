@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ICatodActions, ICatodcolumnDefs, ISort, ICattodGridProps, IDefaultSort } from "./Model";
+import "./grid.scss";
 interface IProps<T> extends ICattodGridProps<T> {
 }
 interface IState<T> {
@@ -9,7 +10,7 @@ interface IState<T> {
     sortType: IDefaultSort[];
     lastSortType: IDefaultSort[];
 }
-declare class GridClass<T> extends Component<IProps<T>, IState<T>> {
+declare class Grid1<T> extends Component<IProps<T>, IState<T>> {
     constructor(props: IProps<T>);
     /**
   * prepare component after mounting componet.
@@ -124,5 +125,5 @@ declare class GridClass<T> extends Component<IProps<T>, IState<T>> {
     tableGrid: () => JSX.Element;
     render(): JSX.Element;
 }
-export declare const Grid: React.MemoExoticComponent<typeof GridClass>;
+export declare const Grid: React.MemoExoticComponent<typeof Grid1>;
 export {};
