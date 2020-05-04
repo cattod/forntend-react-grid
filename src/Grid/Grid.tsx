@@ -263,7 +263,7 @@ interface IState<T> {
    * @beta
    */
     upSvg = (data: ICatodcolumnDefs<T>) => {
-        return <svg height="15" width="10" name="up"
+        return <svg height="15" width="20" name="up"
                 onClick={() => this.sortHandle({ sortType: EnumConsts.Descending }, data.key)}
             >
                 <polyline points="2,5 5,0 8,5 5,0 5,15" className="sort-svg" />
@@ -284,7 +284,7 @@ interface IState<T> {
    * @beta
    */
     downSvg = (data: ICatodcolumnDefs<T>) => {
-        return <svg height="15" width="10" name="up"
+        return <svg height="15" width="20" name="up"
         onClick={() => this.sortHandle({ sortType: EnumConsts.None }, data.key)}
     >
         <polyline points="5,0 5,15 2,10 5,15 8,10 " className="sort-svg" />
