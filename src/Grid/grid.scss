@@ -95,7 +95,7 @@ tr:nth-child(odd){
    }
 
    .sort-svg{
-    fill:none;
+    fill:$header-text-color;
     stroke:$header-text-color;
     stroke-width:1
    }
