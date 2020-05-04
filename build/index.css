@@ -56,7 +56,7 @@ tr:nth-child(odd) {
   margin-right: 3px; }
 
 .sort-svg {
-  fill: none;
+  fill: #444;
   stroke: #444;
   stroke-width: 1; }
 
