@@ -191,10 +191,10 @@ var Grid1 = /** @class */ (function (_super) {
   * @beta
   */
         _this.unsortSVG = function (data) {
-            return React__default.createElement("svg", { height: "15", width: "20", name: "sort", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Ascending }, data.key); } },
-                React__default.createElement("polyline", { points: "8,6 12,0 16,6 8,6" //"8,5 11,0 14,5 11,0 11,15"
+            return React__default.createElement("svg", { height: "15", width: "12", name: "sort", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Ascending }, data.key); } },
+                React__default.createElement("polyline", { points: "2,6 6,0 10,6 2,6" //"8,5 11,0 14,5 11,0 11,15"
                     , className: "sort-svg" }),
-                React__default.createElement("polyline", { points: "8,9 12,15 16,9 8,9" //"8,5 11,0 14,5 11,0 11,15"
+                React__default.createElement("polyline", { points: "2,9 6,15 10,9 2,9" //"8,5 11,0 14,5 11,0 11,15"
                     , className: "sort-svg" }),
                 "Sorry, your browser does not support inline SVG.");
         };
@@ -210,8 +210,8 @@ var Grid1 = /** @class */ (function (_super) {
 * @beta
 */
         _this.upSvg = function (data) {
-            return React__default.createElement("svg", { height: "15", width: "20", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Descending }, data.key); } },
-                React__default.createElement("polyline", { points: "8,6 12,0 16,6 8,6" //"8,5 11,0 14,5 11,0 11,15"
+            return React__default.createElement("svg", { height: "15", width: "12", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Descending }, data.key); } },
+                React__default.createElement("polyline", { points: "2,6 6,0 10,6 2,6" //"8,5 11,0 14,5 11,0 11,15"
                     , className: "sort-svg" }),
                 "Sorry, your browser does not support inline SVG.");
         };
@@ -227,8 +227,8 @@ var Grid1 = /** @class */ (function (_super) {
 * @beta
 */
         _this.downSvg = function (data) {
-            return React__default.createElement("svg", { height: "15", width: "20", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.None }, data.key); } },
-                React__default.createElement("polyline", { points: "8,9 12,15 16,9 8,9" //"8,5 11,0 14,5 11,0 11,15"
+            return React__default.createElement("svg", { height: "15", width: "12", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.None }, data.key); } },
+                React__default.createElement("polyline", { points: "2,9 6,15 10,9 2,9" //"8,5 11,0 14,5 11,0 11,15"
                     , className: "sort-svg" }),
                 "Sorry, your browser does not support inline SVG.");
         };
