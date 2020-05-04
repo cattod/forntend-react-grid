@@ -191,7 +191,10 @@ var Grid1 = /** @class */ (function (_super) {
   * @beta
   */
         _this.unsortSVG = function (data) {
-            return React__default.createElement("img", { src: "sort-png-1.png", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Ascending }, data.key); }, className: "image-icon" });
+            return React__default.createElement("svg", { height: "15", width: "20", name: "sort", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Ascending }, data.key); } },
+                React__default.createElement("polyline", { points: "8,5 11,0 14,5 11,0 11,15", className: "sort-svg" }),
+                React__default.createElement("polyline", { points: "5,0 5,15 2,10 5,15 8,10", className: "sort-svg" }),
+                "Sorry, your browser does not support inline SVG.");
         };
         /**
 * Returns svg for descending sort icon.
@@ -205,7 +208,9 @@ var Grid1 = /** @class */ (function (_super) {
 * @beta
 */
         _this.upSvg = function (data) {
-            return React__default.createElement("img", { src: "up-sort.png", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Descending }, data.key); }, className: "image-icon" });
+            return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.Descending }, data.key); } },
+                React__default.createElement("polyline", { points: "2,5 5,0 8,5 5,0 5,15", className: "sort-svg" }),
+                "Sorry, your browser does not support inline SVG.");
         };
         /**
 * Returns svg for ascending sort icon.
@@ -219,7 +224,9 @@ var Grid1 = /** @class */ (function (_super) {
 * @beta
 */
         _this.downSvg = function (data) {
-            return React__default.createElement("img", { src: "down-sort.svg", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.None }, data.key); }, className: "image-icon" });
+            return React__default.createElement("svg", { height: "15", width: "10", name: "up", onClick: function () { return _this.sortHandle({ sortType: EnumConsts.None }, data.key); } },
+                React__default.createElement("polyline", { points: "5,0 5,15 2,10 5,15 8,10 ", className: "sort-svg" }),
+                "Sorry, your browser does not support inline SVG.");
         };
         /**
 * Returns the displayable xhtml for different condition.
