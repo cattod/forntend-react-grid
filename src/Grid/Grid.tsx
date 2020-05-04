@@ -242,10 +242,12 @@ interface IState<T> {
         return <svg height="15" width="20" name="sort"
         onClick={() => this.sortHandle({ sortType: EnumConsts.Ascending }, data.key)}
     >
-        <polyline points="8,5 11,0 14,5 11,0 11,15"
-            className="sort-svg"
-        />
-        <polyline points="5,0 5,15 2,10 5,15 8,10" className="sort-svg" />
+         <polyline points="8,6 12,0 16,6 8,6"//"8,5 11,0 14,5 11,0 11,15"
+                className="sort-svg"
+            />
+            <polyline points="8,9 12,15 16,9 8,9"//"8,5 11,0 14,5 11,0 11,15"
+                className="sort-svg"
+            />
  Sorry, your browser does not support inline SVG.
 </svg>
 
@@ -266,7 +268,9 @@ interface IState<T> {
         return <svg height="15" width="20" name="up"
                 onClick={() => this.sortHandle({ sortType: EnumConsts.Descending }, data.key)}
             >
-                <polyline points="2,5 5,0 8,5 5,0 5,15" className="sort-svg" />
+                <polyline points="8,6 12,0 16,6 8,6"//"8,5 11,0 14,5 11,0 11,15"
+                className="sort-svg"
+            />
             Sorry, your browser does not support inline SVG.
           </svg>
     
@@ -287,7 +291,9 @@ interface IState<T> {
         return <svg height="15" width="20" name="up"
         onClick={() => this.sortHandle({ sortType: EnumConsts.None }, data.key)}
     >
-        <polyline points="5,0 5,15 2,10 5,15 8,10 " className="sort-svg" />
+        <polyline points="8,9 12,15 16,9 8,9"//"8,5 11,0 14,5 11,0 11,15"
+                className="sort-svg"
+            />
     Sorry, your browser does not support inline SVG.
   </svg>
         
