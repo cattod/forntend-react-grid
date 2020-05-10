@@ -13,9 +13,6 @@ $header-text-color : #444;
     }
 }
 
-tr:nth-child(odd){
-    background-color:$background-color-prime;
- }
 
  .empty-grid{
      text-align: center;
@@ -89,13 +86,9 @@ tr:nth-child(odd){
           }
       }
 
-   .sort-icon{
-    width:12px;
-     margin-right:3px;
-   }
 
    .sort-svg{
-    fill:$header-text-color;
+    fill:black;
     stroke:$header-text-color;
     stroke-width:1
    }
@@ -107,8 +100,4 @@ overflow-x:auto;
 
 .break-text-grid{
     word-break: break-all;
-}
-
-.image-icon{
-    width: 10px;
 }

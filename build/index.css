@@ -3,9 +3,6 @@
   .action-padding span {
     padding: 2px; }
 
-tr:nth-child(odd) {
-  background-color: #f6f6f6; }
-
 .empty-grid {
   text-align: center;
   border: 1px solid #ddd;
@@ -51,12 +48,8 @@ tr:nth-child(odd) {
     font-size: 13px;
     color: #444; }
 
-.sort-icon {
-  width: 12px;
-  margin-right: 3px; }
-
 .sort-svg {
-  fill: #444;
+  fill: black;
   stroke: #444;
   stroke-width: 1; }
 
@@ -65,6 +58,3 @@ tr:nth-child(odd) {
 
 .break-text-grid {
   word-break: break-all; }
-
-.image-icon {
-  width: 10px; }
